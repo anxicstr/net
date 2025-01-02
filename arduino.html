@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Belanja Anxic</title>
+    <style>
+        /* Reset styling dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        /* Navigasi Menu */
+        nav ul {
+            list-style-type: none;
+            text-align: center;
+            background-color: #333;
+            margin: 0;
+            padding: 10px;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        /* Hover efek untuk menu */
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        /* Section Produk */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        /* Tombol beli */
+        .buy-button {
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .buy-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            /* Menu Navigasi untuk Mobile */
+            nav ul {
+                padding: 5px;
+            }
+
+            nav ul li {
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .product-card {
+                padding: 15px;
+            }
+
+            .product-card h3 {
+                font-size: 1rem;
+            }
+
+            .product-card p {
+                font-size: 0.9rem;
+            }
+
+            .buy-button {
+                padding: 8px 16px;
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            footer {
+                padding: 5px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Responsif untuk Perangkat Kecil (Mobile) */
+        @media (max-width: 480px) {
+            .products {
+                grid-template-columns: 1fr; /* Menampilkan satu produk dalam satu kolom */
+                padding: 10px;
+            }
+
+            .product-card {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.2rem;
+            }
+
+            footer {
+                padding: 5px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Selamat Datang di Anxic.str</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Beranda</a></li>
+            <li><a href="order.html">Produk</a></li>
+            <li><a href="mailto:anxic.str@gmail.com?subject=Subject%20Pesan&body=Isi%20Pesan%20di%20sini">Kontak Kami</a></li>
+
+            <li><a href="tentang.html">Tentang Kami</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="products">
+            <!-- Produk 1: Arduino R3 -->
+            <div class="product-card">
+                <img src=" arduinor3dip.jpg" alt="Arduino R3"> <!-- Gambar produk Arduino R3 -->
+                <h3>ARDUINO UNO R3 + USB CABLE</h3>
+                <p>paket: 1x ARDUINO UNO R3 ATMEGA328P-PU ATMEGA 16U2 COMPATIBLE BOARD</p>
+                <!-- Tombol mengarah ke Shopee link -->
+                <a href="https://s.shopee.co.id/AUctCgRiLz" class="buy-button">Beli Sekarang</a>
+            </div>
+            <!-- Produk 2 -->
+            <div class="product-card">
+                <img src="smd.jpeg" alt="UNO R3 SMD">
+                <h3>ARDUINO UNO R3 CLONE SMD CH340 + USB CABLE</h3>
+                <p>paket: 1 unit Arduino Uno R3 (Clone) tipe SMD - gunakan driver CH340</p>
+                <a href="https://s.shopee.co.id/7UzHd9mL3C" class="buy-button">Beli Sekarang</a>
+            </div>
+            <!-- Produk 3 -->
+            <div class="product-card">
+                <img src="nano.png" alt="ARDUINO NANO">
+                <h3>ARDUINO NANO V3 ATMEGA328P CH340G 5V BOARD TYPE-C(belum di solder)</h3>
+                <p>paket: 1 x ARDUINO NANO V3.0 ATMEGA328 TYPE-C</p>
+                <a href="https://s.shopee.co.id/70312Jubpa" class="buy-button">Beli Sekarang</a>
+                </div>
+                </section>
+                </main>
+
+                <footer>
+                    <p>&copy;Toko Belanja Online</p>
+                    </footer>
+                    </body>
+                    </html>

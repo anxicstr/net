@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Profile page for Anxic.str. Connect via WhatsApp, view orders, or follow on TikTok.">
+    <title>anxic.str</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: url('bganxic.jpg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efek bintang */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: starAnimation 15s linear infinite;
+        }
+
+        @keyframes starAnimation {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(100vh) scale(1.5);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0.8;
+            }
+        }
+
+        /* Menu */
+        .menu {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        .menu a {
+            display: inline-block;
+            margin: 12px;
+            padding: 12px 24px;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            animation: heartBeat 1.5s ease-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .whatsapp {
+            background-color: #25D366;
+        }
+
+        .linkorder {
+            background-color: #eb6308;
+        }
+
+        .bird {
+            background-color: #09d1f5;
+        }
+
+        .menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* Animasi huruf ANXIC */
+        .anxic-text {
+            font-size: 6vw; /* Ukuran font lebih kecil (6vw) */
+            color: white; /* Ubah warna teks menjadi putih */
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 2vw; /* Menyebarkan huruf sedikit lebih rapat */
+            text-shadow: 2px 2px 5px red;
+            z-index: 1;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: mergeLetters 3s ease-in-out infinite; /* Berulang */
+        }
+
+        /* Efek animasi huruf ANXIC bergabung dan terpisah */
+        @keyframes mergeLetters {
+            0% {
+                letter-spacing: 2vw;
+                opacity: 0;
+            }
+            25% {
+                letter-spacing: 1vw;
+                opacity: 1;
+            }
+            50% {
+                letter-spacing: 0.5vw;
+                opacity: 1;
+            }
+            75% {
+                letter-spacing: 1vw;
+                opacity: 1;
+            }
+            100% {
+                letter-spacing: 2vw;
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .menu {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .menu h2 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .menu a {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+
+            .plus-sign, .minus-sign {
+                font-size: 24px;
+            }
+        }
+
+        .plus-sign {
+            margin-right: 10px;
+            font-size: 30px;
+            color: red;
+            text-shadow: 3px 3px 4px white;
+            animation: rotatePlus 10s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @keyframes rotatePlus {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .minus-sign {
+            margin-left: 10px;
+            font-size: 30px;
+            color: black;
+            text-shadow: 3px 3px 4px white;
+            animation: rotateMinus 10s linear infinite;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        @keyframes rotateMinus {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars">
+        <div class="star" style="top: 20%; left: 15%; width: 15px; height: 15px; animation-duration: 8s;"></div>
+        <div class="star" style="top: 50%; left: 50%; width: 20px; height: 20px; animation-duration: 10s;"></div>
+        <div class="star" style="top: 30%; left: 70%; width: 18px; height: 18px; animation-duration: 12s;"></div>
+        <div class="star" style="top: 80%; left: 20%; width: 25px; height: 25px; animation-duration: 9s;"></div>
+        <div class="star" style="top: 60%; left: 80%; width: 22px; height: 22px; animation-duration: 11s;"></div>
+        <div class="star" style="top: 40%; left: 40%; width: 16px; height: 16px; animation-duration: 10s;"></div>
+        <div class="star" style="top: 10%; left: 90%; width: 30px; height: 30px; animation-duration: 13s;"></div>
+        <div class="star" style="top: 90%; left: 60%; width: 14px; height: 14px; animation-duration: 7s;"></div>
+    </div>
+
+    <!-- Teks ANXIC -->
+    <div class="anxic-text">A N X I C</div>
+
+    <div class="menu">
+        <h2>
+            <span class="plus-sign">+</span> MY PROFILE <span class="minus-sign">-</span>
+        </h2>
+        <a href="https://wa.me/6283830159598" class="whatsapp" target="_blank" aria-label="Chat via WhatsApp">WhatsApp</a>
+        <a href="order.html" class="linkorder" aria-label="Order Page">Link Order</a>
+        <a href="speedtest.html" class="bird" target="_blank" aria-label="FlyBird">SpeedTest</a>
+    </div>
+
+</body>
+</html>
