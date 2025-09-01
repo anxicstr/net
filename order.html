@@ -3,172 +3,967 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order</title>
+    <title>Premium Order - Tech Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Menambahkan gambar latar belakang untuk seluruh body */
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-image: url('bg1.jpg'); /* Gambar latar belakang utama */
-            background-size: cover;
-            background-position: center center;
-            background-attachment: fixed;
-            color: white;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            --dark-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #2c3e50 70%, #34495e 100%);
+            --glass-bg: rgba(0, 212, 255, 0.08);
+            --glass-border: rgba(0, 212, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.85);
+            --accent-electric: #00d4ff;
+            --accent-orange: #ff6b35;
+            --shadow-elegant: 0 20px 40px rgba(0, 212, 255, 0.15);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-gradient);
+            color: var(--text-primary);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* Styling untuk label */
-        label {
-            font-size: 18px;
-            margin-bottom: 10px;
-            display: block;
-            color: white;
-            text-shadow: 2px 2px 4px #000000; /* Menambahkan outline hitam pada label */
-            text-transform: uppercase; /* Mengubah teks menjadi huruf kapital */
-        }
-
-        /* Styling untuk dropdown */
-        select {
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #4CAF50;
-            border-radius: 5px;
-            background-color: rgba(249, 249, 249, 0.8); /* Latar belakang semi-transparan */
-            color: #333;
-            cursor: pointer;
-            width: 100%;
-            max-width: 400px;
-            margin: 10px 0;
-            transition: background-color 0.3s ease;
-            animation: heartBeat 2s ease-out infinite; /* Menambahkan animasi detak jantung */
-        }
-
-        /* Styling untuk pilihan di dalam dropdown */
-        option {
-            padding: 10px;
-            background-color: rgba(242, 242, 242, 0.8); /* Latar belakang semi-transparan untuk option */
-            color: #333;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        option:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        option:checked {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        /* Efek Bintang Bergerak */
-        .stars {
-            position: absolute;
+        /* Electrical Engineering Circuit Background */
+        body::before {
+            content: '';
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Agar bintang tidak menghalangi interaksi dengan elemen lain */
-            z-index: 0; /* Letakkan bintang di bawah konten lainnya */
+            background: 
+                /* Moving Circuit Lines with Electric Flow */
+                linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.8) 2%, transparent 4%),
+                linear-gradient(0deg, transparent 0%, rgba(0, 212, 255, 0.6) 2%, transparent 4%),
+                linear-gradient(45deg, transparent 0%, rgba(255, 107, 53, 0.7) 1%, transparent 3%),
+                linear-gradient(-45deg, transparent 0%, rgba(0, 212, 255, 0.5) 1%, transparent 3%),
+                /* Static Circuit Paths */
+                linear-gradient(90deg, transparent 48%, rgba(0, 212, 255, 0.2) 49%, rgba(0, 212, 255, 0.2) 51%, transparent 52%),
+                linear-gradient(0deg, transparent 48%, rgba(0, 212, 255, 0.15) 49%, rgba(0, 212, 255, 0.15) 51%, transparent 52%),
+                /* Electrical Nodes */
+                radial-gradient(circle at 25% 25%, rgba(0, 212, 255, 0.6) 2px, transparent 3px),
+                radial-gradient(circle at 75% 25%, rgba(255, 107, 53, 0.6) 2px, transparent 3px),
+                radial-gradient(circle at 25% 75%, rgba(0, 212, 255, 0.6) 2px, transparent 3px),
+                radial-gradient(circle at 75% 75%, rgba(255, 107, 53, 0.6) 2px, transparent 3px),
+                radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.5) 3px, transparent 4px);
+            background-size: 
+                300px 50px, 50px 300px, 200px 200px, 200px 200px,
+                150px 150px, 150px 150px,
+                150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px;
+            animation: 
+                electricFlow 3s linear infinite,
+                circuitPulse 8s ease-in-out infinite,
+                circuitMove 25s linear infinite;
+            z-index: -3;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                /* Electric Current Waves */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(0, 212, 255, 0.1) 21px,
+                    rgba(0, 212, 255, 0.3) 22px,
+                    rgba(0, 212, 255, 0.1) 23px,
+                    transparent 24px,
+                    transparent 80px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(255, 107, 53, 0.1) 31px,
+                    rgba(255, 107, 53, 0.3) 32px,
+                    rgba(255, 107, 53, 0.1) 33px,
+                    transparent 34px,
+                    transparent 120px
+                ),
+                /* Power Field Effect */
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.15) 0%, transparent 30%),
+                radial-gradient(circle at 60% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 40%);
+            animation: 
+                electricalWaves 4s ease-in-out infinite,
+                electricalPulse 6s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes electricalWaves {
+            0% { 
+                background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
+                filter: brightness(1);
+            }
+            25% { 
+                background-position: 0 20px, 30px 0, 0 0, 0 0, 0 0;
+                filter: brightness(1.2);
+            }
+            50% { 
+                background-position: 0 40px, 60px 0, 0 0, 0 0, 0 0;
+                filter: brightness(1.5);
+            }
+            75% { 
+                background-position: 0 60px, 90px 0, 0 0, 0 0, 0 0;
+                filter: brightness(1.2);
+            }
+            100% { 
+                background-position: 0 80px, 120px 0, 0 0, 0 0, 0 0;
+                filter: brightness(1);
+            }
+        }
+
+        @keyframes circuitPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes circuitMove {
+            0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+            100% { background-position: 300px 0, 0 300px, 200px 200px, -200px -200px, 150px 150px, -150px 150px, 0 0, 0 0, 0 0, 0 0, 0 0; }
+        }
+
+        @keyframes electricFlow {
+            0% { 
+                filter: brightness(1) saturate(1);
+                background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+            25% { 
+                filter: brightness(1.5) saturate(1.3);
+                background-position: 75px 0, 0 75px, 50px 50px, -50px -50px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+            50% { 
+                filter: brightness(2) saturate(1.5);
+                background-position: 150px 0, 0 150px, 100px 100px, -100px -100px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+            75% { 
+                filter: brightness(1.5) saturate(1.3);
+                background-position: 225px 0, 0 225px, 150px 150px, -150px -150px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+            100% { 
+                filter: brightness(1) saturate(1);
+                background-position: 300px 0, 0 300px, 200px 200px, -200px -200px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+            }
+        }
+
+        @keyframes electricalPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        /* Electric Current Flow Effect */
+        .electric-flow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .flow-line {
+            position: absolute;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--accent-electric) 20%, 
+                white 50%, 
+                var(--accent-electric) 80%, 
+                transparent 100%);
+            box-shadow: 
+                0 0 8px var(--accent-electric),
+                0 0 16px var(--accent-electric),
+                0 0 24px rgba(0, 212, 255, 0.5);
+            filter: blur(1px);
+        }
+
+        .flow-line.horizontal {
+            width: 0%;
+            height: 2px;
+            animation: flowHorizontal 4s ease-in-out infinite;
+        }
+
+        .flow-line.vertical {
+            width: 2px;
+            height: 0%;
+            background: linear-gradient(0deg, 
+                transparent 0%, 
+                var(--accent-electric) 20%, 
+                white 50%, 
+                var(--accent-orange) 80%, 
+                transparent 100%);
+            animation: flowVertical 4s ease-in-out infinite;
+        }
+
+        @keyframes flowHorizontal {
+            0% { 
+                width: 0%;
+                left: 0%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                width: 100%;
+                left: 0%;
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% { 
+                width: 0%;
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes flowVertical {
+            0% { 
+                height: 0%;
+                top: 0%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                height: 100%;
+                top: 0%;
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% { 
+                height: 0%;
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        /* Lightning Bolts Effect */
+        .lightning-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
             overflow: hidden;
         }
 
-        /* Elemen bintang dengan ukuran lebih besar */
-        .star {
+        .lightning {
             position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            opacity: 0.8;
-            animation: starAnimation 15s linear infinite;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                var(--accent-electric) 20%, 
+                white 50%, 
+                var(--accent-electric) 80%, 
+                transparent 100%);
+            opacity: 0;
+            animation: lightningStrike 8s infinite;
+            filter: blur(1px);
+            box-shadow: 
+                0 0 10px var(--accent-electric),
+                0 0 20px var(--accent-electric),
+                0 0 30px rgba(255, 255, 255, 0.8);
         }
 
-        /* Animasi bintang bergerak */
-        @keyframes starAnimation {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 0.8;
+        .lightning:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+            transform: rotate(2deg);
+        }
+
+        .lightning:nth-child(2) {
+            left: 30%;
+            animation-delay: 2s;
+            transform: rotate(-1deg);
+        }
+
+        .lightning:nth-child(3) {
+            left: 60%;
+            animation-delay: 4s;
+            transform: rotate(1deg);
+        }
+
+        .lightning:nth-child(4) {
+            left: 85%;
+            animation-delay: 6s;
+            transform: rotate(-2deg);
+        }
+
+        .lightning:nth-child(5) {
+            left: 45%;
+            animation-delay: 1s;
+            transform: rotate(0.5deg);
+        }
+
+        @keyframes lightningStrike {
+            0%, 90%, 100% { 
+                opacity: 0; 
+                transform: scaleY(0) rotate(var(--rotation, 0deg));
+                filter: blur(2px);
             }
-            50% {
-                transform: translateY(100vh) scale(1.5); /* Bintang membesar sedikit saat bergerak */
+            91% { 
+                opacity: 0.8; 
+                transform: scaleY(1) rotate(var(--rotation, 0deg));
+                filter: blur(0px);
+            }
+            92% { 
+                opacity: 0.3; 
+                filter: blur(1px);
+            }
+            93% { 
+                opacity: 1; 
+                filter: blur(0px);
+            }
+            94%, 95% { 
+                opacity: 0.1; 
+                filter: blur(2px);
+            }
+        }
+
+        /* Meteor Stars */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* Regular Stars */
+        .star {
+            background: var(--accent-electric);
+            animation: twinkle 3s infinite;
+        }
+
+        /* Meteor Stars */
+        .meteor {
+            background: linear-gradient(45deg, var(--accent-electric), var(--accent-orange));
+            box-shadow: 
+                0 0 6px var(--accent-electric),
+                0 0 12px var(--accent-electric),
+                0 0 18px var(--accent-electric);
+            animation: meteorShower 8s linear infinite;
+        }
+
+        .meteor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-electric), transparent);
+            transform: translate(-50%, -50%) rotate(45deg);
+            opacity: 0.7;
+        }
+
+        .particle:nth-child(1) { 
+            width: 3px; height: 3px; 
+            left: 10%; top: 20%;
+            animation: twinkle 2s infinite;
+        }
+        .particle:nth-child(2) { 
+            width: 8px; height: 8px; 
+            left: 85%; top: 10%;
+            animation: meteorShower 6s linear infinite;
+            animation-delay: 1s;
+        }
+        .particle:nth-child(3) { 
+            width: 4px; height: 4px; 
+            left: 30%; top: 60%;
+            animation: twinkle 2.5s infinite 0.5s;
+        }
+        .particle:nth-child(4) { 
+            width: 6px; height: 6px; 
+            left: 70%; top: 15%;
+            animation: meteorShower 7s linear infinite;
+            animation-delay: 3s;
+        }
+        .particle:nth-child(5) { 
+            width: 5px; height: 5px; 
+            left: 20%; top: 80%;
+            animation: twinkle 3s infinite 1s;
+        }
+        .particle:nth-child(6) { 
+            width: 10px; height: 10px; 
+            left: 90%; top: 30%;
+            animation: meteorShower 9s linear infinite;
+            animation-delay: 4s;
+        }
+        .particle:nth-child(7) { 
+            width: 3px; height: 3px; 
+            left: 60%; top: 70%;
+            animation: twinkle 2.8s infinite 1.5s;
+        }
+        .particle:nth-child(8) { 
+            width: 7px; height: 7px; 
+            left: 40%; top: 25%;
+            animation: meteorShower 5s linear infinite;
+            animation-delay: 2s;
+        }
+        .particle:nth-child(9) { 
+            width: 4px; height: 4px; 
+            left: 80%; top: 85%;
+            animation: twinkle 3.2s infinite 0.8s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { 
+                opacity: 0.3;
+                transform: scale(1);
+                background: var(--accent-electric);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.5);
+                background: var(--accent-orange);
+                box-shadow: 
+                    0 0 10px var(--accent-electric),
+                    0 0 20px var(--accent-electric);
+            }
+        }
+
+        @keyframes meteorShower {
+            0% { 
+                opacity: 0;
+                transform: translateX(-100px) translateY(-100px) scale(0);
+            }
+            10% {
+                opacity: 1;
+                transform: translateX(0) translateY(0) scale(1);
+            }
+            90% {
+                opacity: 0.8;
+                transform: translateX(150vw) translateY(150vh) scale(1.2);
+            }
+            100% { 
+                opacity: 0;
+                transform: translateX(200vw) translateY(200vh) scale(0);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        /* Glass Morphism Card */
+        .order-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: var(--shadow-elegant);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            opacity: 0.5;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-electric) 0%, var(--accent-orange) 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form Group with Electric Field */
+        .form-group {
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .form-group::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: -1;
+            animation: fieldPulse 4s ease-in-out infinite;
+        }
+
+        .form-group:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes fieldPulse {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: scale(1.05);
                 opacity: 0.6;
             }
-            100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0.8;
-            }
         }
 
-        /* Responsiveness */
-        @media (max-width: 600px) {
-            select {
-                width: 80%;
-            }
+        /* Lightning Strike Effects on Select */
+        .select-wrapper {
+            position: relative;
+            margin-bottom: 20px;
         }
 
-        /* Animasi Detak Jantung */
-        @keyframes heartBeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05); /* Efek detak jantung yang lebih halus */
-            }
-        }
-
-        /* Menempatkan menu di pojok kiri atas */
-        .menu {
+        .select-wrapper::before {
+            content: '';
             position: absolute;
-            top: 20px; /* Jarak dari atas */
-            left: 20px; /* Jarak dari kiri */
-            z-index: 10; /* Pastikan menu berada di atas elemen lainnya */
-            background-color: rgba(255, 255, 255, 0.8); /* Latar belakang transparan */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: transparent;
+            border-radius: 16px;
+            z-index: -1;
+            transition: all 0.3s ease;
         }
 
+        .select-wrapper:hover::before {
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 31%, transparent 32%),
+                linear-gradient(-45deg, transparent 30%, rgba(255, 107, 53, 0.1) 31%, transparent 32%),
+                linear-gradient(90deg, transparent 48%, rgba(0, 212, 255, 0.2) 50%, transparent 52%);
+            background-size: 20px 20px, 20px 20px, 100% 2px;
+            animation: lightningStrikeSelect 0.8s ease-out;
+        }
+
+        @keyframes lightningStrikeSelect {
+            0% { 
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            20% { 
+                opacity: 1;
+                transform: scale(1.05);
+                filter: brightness(2);
+            }
+            40% { 
+                opacity: 0.7;
+                filter: brightness(1.5);
+            }
+            60% { 
+                opacity: 1;
+                filter: brightness(2);
+            }
+            100% { 
+                opacity: 0.3;
+                transform: scale(1);
+                filter: brightness(1);
+            }
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Premium Select Dropdown */
+        .select-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .select {
+            width: 100%;
+            padding: 20px 24px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: 
+                linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%),
+                rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+            border-radius: 16px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 1px rgba(0, 212, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .select::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 212, 255, 0.3), 
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 107, 53, 0.3),
+                transparent);
+            transition: left 0.8s ease;
+            z-index: -1;
+        }
+
+        .select:hover::before {
+            left: 100%;
+        }
+
+        .select:focus {
+            outline: none;
+            border-color: var(--accent-electric);
+            background: 
+                linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(255, 107, 53, 0.1) 100%),
+                rgba(0, 0, 0, 0.4);
+            box-shadow: 
+                0 0 0 4px rgba(0, 212, 255, 0.3),
+                0 12px 40px rgba(0, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 0 20px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .select:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            background: 
+                linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(255, 107, 53, 0.08) 100%),
+                rgba(0, 0, 0, 0.35);
+            transform: translateY(-1px);
+            box-shadow: 
+                0 12px 35px rgba(0, 212, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 0 1px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Custom Lightning Arrow */
+        .select-wrapper::after {
+            content: '⚡';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: var(--accent-electric);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            text-shadow: 
+                0 0 10px var(--accent-electric),
+                0 0 20px var(--accent-electric);
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+
+        .select:focus + .select-wrapper::after,
+        .select-wrapper:hover::after {
+            transform: translateY(-50%) scale(1.3) rotate(15deg);
+            color: var(--accent-orange);
+            text-shadow: 
+                0 0 15px var(--accent-orange),
+                0 0 30px var(--accent-orange);
+        }
+
+        @keyframes arrowPulse {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translateY(-50%) scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateY(-50%) scale(1.1);
+                text-shadow: 
+                    0 0 15px var(--accent-electric),
+                    0 0 30px var(--accent-electric),
+                    0 0 45px rgba(0, 212, 255, 0.5);
+            }
+        }
+
+        /* Option Styling with Electric Effects */
+        .select option {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2c3e50 100%);
+            color: var(--text-primary);
+            padding: 15px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .select option:hover {
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.3) 0%, 
+                rgba(255, 107, 53, 0.2) 50%,
+                rgba(0, 212, 255, 0.3) 100%);
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        }
+
+        .select option:checked,
+        .select option:focus {
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0.4) 0%, 
+                rgba(255, 107, 53, 0.3) 50%,
+                rgba(0, 212, 255, 0.4) 100%);
+            color: white;
+            text-shadow: 
+                0 0 10px rgba(0, 212, 255, 1),
+                0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Electric Spark Effect on Select */
+        .select-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--accent-electric), 
+                var(--accent-orange), 
+                var(--accent-electric),
+                var(--accent-orange));
+            background-size: 300% 300%;
+            border-radius: 18px;
+            opacity: 0;
+            z-index: -1;
+            animation: electricBorder 3s linear infinite;
+            transition: opacity 0.3s ease;
+        }
+
+        .select:focus ~ .select-wrapper::before,
+        .select:hover ~ .select-wrapper::before {
+            opacity: 0.7;
+        }
+
+        @keyframes electricBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Decorative Elements */
+        .decoration {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 107, 53, 0.15));
+            filter: blur(60px);
+        }
+
+        .decoration:nth-child(1) {
+            top: -60px;
+            right: -60px;
+            animation: electricPulse 3s ease-in-out infinite;
+        }
+
+        .decoration:nth-child(2) {
+            bottom: -60px;
+            left: -60px;
+            animation: electricPulse 3s ease-in-out infinite 1.5s;
+        }
+
+        @keyframes electricPulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.3;
+                background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 107, 53, 0.15));
+            }
+            50% { 
+                transform: scale(1.3); 
+                opacity: 0.7;
+                background: linear-gradient(135deg, rgba(0, 212, 255, 0.25), rgba(255, 107, 53, 0.25));
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .order-card {
+                padding: 32px 24px;
+                border-radius: 20px;
+                margin: 20px;
+            }
+            
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .select {
+                padding: 16px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+            
+            .order-card {
+                padding: 24px 20px;
+            }
+            
+            .title {
+                font-size: 1.6rem;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Lapisan bintang -->
-    <div class="stars">
-        <!-- Membuat beberapa bintang dengan ukuran lebih besar dan variasi durasi animasi -->
-        <div class="star" style="top: 20%; left: 15%; width: 12px; height: 12px; animation-duration: 10s;"></div>
-        <div class="star" style="top: 50%; left: 50%; width: 14px; height: 14px; animation-duration: 12s;"></div>
-        <div class="star" style="top: 30%; left: 70%; width: 16px; height: 16px; animation-duration: 14s;"></div>
-        <div class="star" style="top: 80%; left: 20%; width: 18px; height: 18px; animation-duration: 11s;"></div>
-        <div class="star" style="top: 60%; left: 80%; width: 20px; height: 20px; animation-duration: 13s;"></div>
-        <div class="star" style="top: 40%; left: 40%; width: 16px; height: 16px; animation-duration: 15s;"></div>
-        <div class="star" style="top: 10%; left: 90%; width: 14px; height: 14px; animation-duration: 16s;"></div>
-        <div class="star" style="top: 90%; left: 60%; width: 18px; height: 18px; animation-duration: 8s;"></div>
+    <!-- Electric Current Flow Lines -->
+    <div class="electric-flow">
+        <div class="flow-line horizontal" style="top: 20%; animation-delay: 0s;"></div>
+        <div class="flow-line horizontal" style="top: 40%; animation-delay: 1s;"></div>
+        <div class="flow-line horizontal" style="top: 60%; animation-delay: 2s;"></div>
+        <div class="flow-line horizontal" style="top: 80%; animation-delay: 0.5s;"></div>
+        <div class="flow-line vertical" style="left: 25%; animation-delay: 1.5s;"></div>
+        <div class="flow-line vertical" style="left: 50%; animation-delay: 2.5s;"></div>
+        <div class="flow-line vertical" style="left: 75%; animation-delay: 0.8s;"></div>
     </div>
 
-    <!-- Form Order -->
-    <div class="menu">
-        <form action="" method="get">
-            <label for="opsi">PRODUK KAMI!</label> <!-- Mengubah teks menjadi "PRODUK KAMI!" -->
-            <select id="opsi" name="opsi" onchange="window.location.href=this.value;">
-                <option value="">PILIH DISINI!</option>
-                <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20web%20Anda">CODE WEB UNTUK MEDSOS</option>
-                <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20Arduino%20Anda">CODE ARDUINO</option>
-                <option value="https://wa.me/6285167455874?text=Halo,%20saya%20tertarik%20dengan%20code%20projek%20IOT%20Anda">CODE PROJEK IOT,DLL</option>
-                <!-- Pilihan Arduino yang mengarah ke halaman Arduino -->
-                <option value="arduino.html">Arduino</option> <!-- Halaman Arduino akan dipanggil di sini -->
-                <!-- Opsi COMING SOON dapat diarahkan ke halaman lain atau tidak aktif -->
-                <option value="comingsoon.html">COMING SOON</option>
-            </select>
-        </form>
+    <!-- Lightning Effects -->
+    <div class="lightning-container">
+        <div class="lightning" style="--rotation: 2deg;"></div>
+        <div class="lightning" style="--rotation: -1deg;"></div>
+        <div class="lightning" style="--rotation: 1deg;"></div>
+        <div class="lightning" style="--rotation: -2deg;"></div>
+        <div class="lightning" style="--rotation: 0.5deg;"></div>
     </div>
 
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="order-card">
+            <!-- Decorative Elements -->
+            <div class="decoration"></div>
+            <div class="decoration"></div>
+
+            <div class="header">
+                <h1 class="title">⚡ Electrical Solutions</h1>
+                <p class="subtitle">Inovasi teknologi electrical engineering terdepan</p>
+            </div>
+
+            <form action="" method="get">
+                <div class="form-group">
+                    <label for="opsi" class="label">⚡ Engineering Products</label>
+                    <div class="select-wrapper">
+                        <select id="opsi" name="opsi" class="select" onchange="window.location.href=this.value;">
+                            <option value="">⚡ Pilih solusi engineering Anda...</option>
+                            <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20web%20Anda">🌐 Smart Web Systems ⚡</option>
+                            <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20Arduino%20Anda">🔧 Arduino Programming ⚡</option>
+                            <option value="https://wa.me/6285167455874?text=Halo,%20saya%20tertarik%20dengan%20code%20projek%20IOT%20Anda">📡 IoT & Embedded Systems ⚡</option>
+                            <option value="arduino.html">⚡ Advanced Arduino Projects ⚡</option>
+                            <option value="comingsoon.html">🚀 Next-Gen Solutions ⚡</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
-
