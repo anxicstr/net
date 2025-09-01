@@ -13,22 +13,19 @@
         }
 
         :root {
-            --primary-gradient: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-            --secondary-gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            --dark-gradient: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 30%, #2c3e50 70%, #34495e 100%);
-            --glass-bg: rgba(0, 212, 255, 0.08);
-            --glass-border: rgba(0, 212, 255, 0.2);
+            --primary-electric: #00d4ff;
+            --secondary-orange: #ff6b35;
             --text-primary: #ffffff;
             --text-secondary: rgba(255, 255, 255, 0.85);
-            --accent-electric: #00d4ff;
-            --accent-orange: #ff6b35;
-            --shadow-elegant: 0 20px 40px rgba(0, 212, 255, 0.15);
-            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --glass-bg: rgba(0, 0, 0, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.3);
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark-gradient);
+            background: url('bganxic.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: var(--text-primary);
             min-height: 100vh;
             display: flex;
@@ -38,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* Electrical Engineering Circuit Background */
+        /* Dark overlay for better readability */
         body::before {
             content: '';
             position: fixed;
@@ -46,32 +43,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                /* Moving Circuit Lines with Electric Flow */
-                linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.8) 2%, transparent 4%),
-                linear-gradient(0deg, transparent 0%, rgba(0, 212, 255, 0.6) 2%, transparent 4%),
-                linear-gradient(45deg, transparent 0%, rgba(255, 107, 53, 0.7) 1%, transparent 3%),
-                linear-gradient(-45deg, transparent 0%, rgba(0, 212, 255, 0.5) 1%, transparent 3%),
-                /* Static Circuit Paths */
-                linear-gradient(90deg, transparent 48%, rgba(0, 212, 255, 0.2) 49%, rgba(0, 212, 255, 0.2) 51%, transparent 52%),
-                linear-gradient(0deg, transparent 48%, rgba(0, 212, 255, 0.15) 49%, rgba(0, 212, 255, 0.15) 51%, transparent 52%),
-                /* Electrical Nodes */
-                radial-gradient(circle at 25% 25%, rgba(0, 212, 255, 0.6) 2px, transparent 3px),
-                radial-gradient(circle at 75% 25%, rgba(255, 107, 53, 0.6) 2px, transparent 3px),
-                radial-gradient(circle at 25% 75%, rgba(0, 212, 255, 0.6) 2px, transparent 3px),
-                radial-gradient(circle at 75% 75%, rgba(255, 107, 53, 0.6) 2px, transparent 3px),
-                radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.5) 3px, transparent 4px);
-            background-size: 
-                300px 50px, 50px 300px, 200px 200px, 200px 200px,
-                150px 150px, 150px 150px,
-                150px 150px, 150px 150px, 150px 150px, 150px 150px, 150px 150px;
-            animation: 
-                electricFlow 3s linear infinite,
-                circuitPulse 8s ease-in-out infinite,
-                circuitMove 25s linear infinite;
-            z-index: -3;
+            background: linear-gradient(
+                135deg, 
+                rgba(0, 0, 0, 0.6) 0%, 
+                rgba(0, 0, 0, 0.4) 50%, 
+                rgba(0, 0, 0, 0.6) 100%
+            );
+            z-index: 1;
         }
 
+        /* Electric grid overlay */
         body::after {
             content: '';
             position: fixed;
@@ -79,410 +60,58 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                /* Electric Current Waves */
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 20px,
-                    rgba(0, 212, 255, 0.1) 21px,
-                    rgba(0, 212, 255, 0.3) 22px,
-                    rgba(0, 212, 255, 0.1) 23px,
-                    transparent 24px,
-                    transparent 80px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 30px,
-                    rgba(255, 107, 53, 0.1) 31px,
-                    rgba(255, 107, 53, 0.3) 32px,
-                    rgba(255, 107, 53, 0.1) 33px,
-                    transparent 34px,
-                    transparent 120px
-                ),
-                /* Power Field Effect */
-                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(255, 107, 53, 0.15) 0%, transparent 30%),
-                radial-gradient(circle at 60% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 40%);
-            animation: 
-                electricalWaves 4s ease-in-out infinite,
-                electricalPulse 6s ease-in-out infinite alternate;
-            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 2;
+            pointer-events: none;
         }
 
-        @keyframes electricalWaves {
-            0% { 
-                background-position: 0 0, 0 0, 0 0, 0 0, 0 0;
-                filter: brightness(1);
-            }
-            25% { 
-                background-position: 0 20px, 30px 0, 0 0, 0 0, 0 0;
-                filter: brightness(1.2);
-            }
-            50% { 
-                background-position: 0 40px, 60px 0, 0 0, 0 0, 0 0;
-                filter: brightness(1.5);
-            }
-            75% { 
-                background-position: 0 60px, 90px 0, 0 0, 0 0, 0 0;
-                filter: brightness(1.2);
-            }
-            100% { 
-                background-position: 0 80px, 120px 0, 0 0, 0 0, 0 0;
-                filter: brightness(1);
-            }
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        @keyframes circuitPulse {
-            0%, 100% { 
-                opacity: 0.8;
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 1;
-                transform: scale(1.02);
-            }
-        }
-
-        @keyframes circuitMove {
-            0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
-            100% { background-position: 300px 0, 0 300px, 200px 200px, -200px -200px, 150px 150px, -150px 150px, 0 0, 0 0, 0 0, 0 0, 0 0; }
-        }
-
-        @keyframes electricFlow {
-            0% { 
-                filter: brightness(1) saturate(1);
-                background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-            }
-            25% { 
-                filter: brightness(1.5) saturate(1.3);
-                background-position: 75px 0, 0 75px, 50px 50px, -50px -50px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-            }
-            50% { 
-                filter: brightness(2) saturate(1.5);
-                background-position: 150px 0, 0 150px, 100px 100px, -100px -100px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-            }
-            75% { 
-                filter: brightness(1.5) saturate(1.3);
-                background-position: 225px 0, 0 225px, 150px 150px, -150px -150px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-            }
-            100% { 
-                filter: brightness(1) saturate(1);
-                background-position: 300px 0, 0 300px, 200px 200px, -200px -200px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
-            }
-        }
-
-        @keyframes electricalPulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.7; }
-        }
-
-        /* Electric Current Flow Effect */
-        .electric-flow {
+        /* Electric particles */
+        .electric-particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -2;
-        }
-
-        .flow-line {
-            position: absolute;
-            background: linear-gradient(90deg, 
-                transparent 0%, 
-                var(--accent-electric) 20%, 
-                white 50%, 
-                var(--accent-electric) 80%, 
-                transparent 100%);
-            box-shadow: 
-                0 0 8px var(--accent-electric),
-                0 0 16px var(--accent-electric),
-                0 0 24px rgba(0, 212, 255, 0.5);
-            filter: blur(1px);
-        }
-
-        .flow-line.horizontal {
-            width: 0%;
-            height: 2px;
-            animation: flowHorizontal 4s ease-in-out infinite;
-        }
-
-        .flow-line.vertical {
-            width: 2px;
-            height: 0%;
-            background: linear-gradient(0deg, 
-                transparent 0%, 
-                var(--accent-electric) 20%, 
-                white 50%, 
-                var(--accent-orange) 80%, 
-                transparent 100%);
-            animation: flowVertical 4s ease-in-out infinite;
-        }
-
-        @keyframes flowHorizontal {
-            0% { 
-                width: 0%;
-                left: 0%;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            50% {
-                width: 100%;
-                left: 0%;
-                opacity: 1;
-            }
-            90% {
-                opacity: 0.5;
-            }
-            100% { 
-                width: 0%;
-                left: 100%;
-                opacity: 0;
-            }
-        }
-
-        @keyframes flowVertical {
-            0% { 
-                height: 0%;
-                top: 0%;
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            50% {
-                height: 100%;
-                top: 0%;
-                opacity: 1;
-            }
-            90% {
-                opacity: 0.5;
-            }
-            100% { 
-                height: 0%;
-                top: 100%;
-                opacity: 0;
-            }
-        }
-
-        /* Lightning Bolts Effect */
-        .lightning-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -2;
+            z-index: 3;
             overflow: hidden;
-        }
-
-        .lightning {
-            position: absolute;
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(180deg, 
-                transparent 0%, 
-                var(--accent-electric) 20%, 
-                white 50%, 
-                var(--accent-electric) 80%, 
-                transparent 100%);
-            opacity: 0;
-            animation: lightningStrike 8s infinite;
-            filter: blur(1px);
-            box-shadow: 
-                0 0 10px var(--accent-electric),
-                0 0 20px var(--accent-electric),
-                0 0 30px rgba(255, 255, 255, 0.8);
-        }
-
-        .lightning:nth-child(1) {
-            left: 10%;
-            animation-delay: 0s;
-            transform: rotate(2deg);
-        }
-
-        .lightning:nth-child(2) {
-            left: 30%;
-            animation-delay: 2s;
-            transform: rotate(-1deg);
-        }
-
-        .lightning:nth-child(3) {
-            left: 60%;
-            animation-delay: 4s;
-            transform: rotate(1deg);
-        }
-
-        .lightning:nth-child(4) {
-            left: 85%;
-            animation-delay: 6s;
-            transform: rotate(-2deg);
-        }
-
-        .lightning:nth-child(5) {
-            left: 45%;
-            animation-delay: 1s;
-            transform: rotate(0.5deg);
-        }
-
-        @keyframes lightningStrike {
-            0%, 90%, 100% { 
-                opacity: 0; 
-                transform: scaleY(0) rotate(var(--rotation, 0deg));
-                filter: blur(2px);
-            }
-            91% { 
-                opacity: 0.8; 
-                transform: scaleY(1) rotate(var(--rotation, 0deg));
-                filter: blur(0px);
-            }
-            92% { 
-                opacity: 0.3; 
-                filter: blur(1px);
-            }
-            93% { 
-                opacity: 1; 
-                filter: blur(0px);
-            }
-            94%, 95% { 
-                opacity: 0.1; 
-                filter: blur(2px);
-            }
-        }
-
-        /* Meteor Stars */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
         }
 
         .particle {
             position: absolute;
+            background: radial-gradient(circle, var(--primary-electric), transparent);
             border-radius: 50%;
             opacity: 0;
+            animation: electricFloat 8s ease-in-out infinite;
         }
 
-        /* Regular Stars */
-        .star {
-            background: var(--accent-electric);
-            animation: twinkle 3s infinite;
-        }
-
-        /* Meteor Stars */
-        .meteor {
-            background: linear-gradient(45deg, var(--accent-electric), var(--accent-orange));
-            box-shadow: 
-                0 0 6px var(--accent-electric),
-                0 0 12px var(--accent-electric),
-                0 0 18px var(--accent-electric);
-            animation: meteorShower 8s linear infinite;
-        }
-
-        .meteor::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-electric), transparent);
-            transform: translate(-50%, -50%) rotate(45deg);
-            opacity: 0.7;
-        }
-
-        .particle:nth-child(1) { 
-            width: 3px; height: 3px; 
-            left: 10%; top: 20%;
-            animation: twinkle 2s infinite;
-        }
-        .particle:nth-child(2) { 
-            width: 8px; height: 8px; 
-            left: 85%; top: 10%;
-            animation: meteorShower 6s linear infinite;
-            animation-delay: 1s;
-        }
-        .particle:nth-child(3) { 
-            width: 4px; height: 4px; 
-            left: 30%; top: 60%;
-            animation: twinkle 2.5s infinite 0.5s;
-        }
-        .particle:nth-child(4) { 
-            width: 6px; height: 6px; 
-            left: 70%; top: 15%;
-            animation: meteorShower 7s linear infinite;
-            animation-delay: 3s;
-        }
-        .particle:nth-child(5) { 
-            width: 5px; height: 5px; 
-            left: 20%; top: 80%;
-            animation: twinkle 3s infinite 1s;
-        }
-        .particle:nth-child(6) { 
-            width: 10px; height: 10px; 
-            left: 90%; top: 30%;
-            animation: meteorShower 9s linear infinite;
-            animation-delay: 4s;
-        }
-        .particle:nth-child(7) { 
-            width: 3px; height: 3px; 
-            left: 60%; top: 70%;
-            animation: twinkle 2.8s infinite 1.5s;
-        }
-        .particle:nth-child(8) { 
-            width: 7px; height: 7px; 
-            left: 40%; top: 25%;
-            animation: meteorShower 5s linear infinite;
-            animation-delay: 2s;
-        }
-        .particle:nth-child(9) { 
-            width: 4px; height: 4px; 
-            left: 80%; top: 85%;
-            animation: twinkle 3.2s infinite 0.8s;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { 
-                opacity: 0.3;
-                transform: scale(1);
-                background: var(--accent-electric);
-            }
-            50% { 
-                opacity: 1;
-                transform: scale(1.5);
-                background: var(--accent-orange);
-                box-shadow: 
-                    0 0 10px var(--accent-electric),
-                    0 0 20px var(--accent-electric);
-            }
-        }
-
-        @keyframes meteorShower {
-            0% { 
+        @keyframes electricFloat {
+            0% {
+                transform: translateY(100vh) scale(0) rotate(0deg);
                 opacity: 0;
-                transform: translateX(-100px) translateY(-100px) scale(0);
             }
             10% {
                 opacity: 1;
-                transform: translateX(0) translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(50vh) scale(1) rotate(180deg);
+                opacity: 0.8;
             }
             90% {
-                opacity: 0.8;
-                transform: translateX(150vw) translateY(150vh) scale(1.2);
+                opacity: 1;
             }
-            100% { 
+            100% {
+                transform: translateY(-10vh) scale(0) rotate(360deg);
                 opacity: 0;
-                transform: translateX(200vw) translateY(200vh) scale(0);
             }
         }
 
@@ -490,27 +119,36 @@
         .container {
             position: relative;
             z-index: 10;
-            max-width: 500px;
+            max-width: 600px;
             width: 90%;
+            margin: 20px auto;
         }
 
-        /* Glass Morphism Card */
+        /* Premium Card */
         .order-card {
             background: var(--glass-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            border: 2px solid var(--glass-border);
             border-radius: 24px;
-            padding: 48px 40px;
-            box-shadow: var(--shadow-elegant);
+            padding: 40px;
+            box-shadow: var(--shadow-soft);
             position: relative;
             overflow: hidden;
-            transform: translateY(0);
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: cardGlow 4s ease-in-out infinite alternate;
         }
 
-        .order-card:hover {
-            transform: translateY(-5px);
+        @keyframes cardGlow {
+            0% {
+                box-shadow: 
+                    0 10px 40px rgba(0, 0, 0, 0.4),
+                    0 0 20px rgba(0, 212, 255, 0.2);
+            }
+            100% {
+                box-shadow: 
+                    0 15px 50px rgba(0, 0, 0, 0.5),
+                    0 0 40px rgba(0, 212, 255, 0.4);
+            }
         }
 
         .order-card::before {
@@ -520,8 +158,8 @@
             left: 0;
             right: 0;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-            opacity: 0.5;
+            background: linear-gradient(90deg, transparent, var(--primary-electric), transparent);
+            opacity: 0.8;
         }
 
         /* Header */
@@ -532,126 +170,55 @@
 
         .title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-electric) 0%, var(--accent-orange) 50%, #fff 100%);
+            background: linear-gradient(135deg, var(--primary-electric) 0%, var(--secondary-orange) 50%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 12px;
             letter-spacing: -0.02em;
             text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% {
+                filter: brightness(1);
+                transform: scale(1);
+            }
+            50% {
+                filter: brightness(1.2);
+                transform: scale(1.02);
+            }
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             font-weight: 400;
             letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
 
-        /* Form Group with Electric Field */
+        /* Form Group */
         .form-group {
             margin-bottom: 32px;
             position: relative;
         }
 
-        .form-group::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: -1;
-            animation: fieldPulse 4s ease-in-out infinite;
-        }
-
-        .form-group:hover::before {
-            opacity: 1;
-        }
-
-        @keyframes fieldPulse {
-            0%, 100% { 
-                transform: scale(1);
-                opacity: 0.3;
-            }
-            50% { 
-                transform: scale(1.05);
-                opacity: 0.6;
-            }
-        }
-
-        /* Lightning Strike Effects on Select */
-        .select-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .select-wrapper::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: transparent;
-            border-radius: 16px;
-            z-index: -1;
-            transition: all 0.3s ease;
-        }
-
-        .select-wrapper:hover::before {
-            background: 
-                linear-gradient(45deg, transparent 30%, rgba(0, 212, 255, 0.1) 31%, transparent 32%),
-                linear-gradient(-45deg, transparent 30%, rgba(255, 107, 53, 0.1) 31%, transparent 32%),
-                linear-gradient(90deg, transparent 48%, rgba(0, 212, 255, 0.2) 50%, transparent 52%);
-            background-size: 20px 20px, 20px 20px, 100% 2px;
-            animation: lightningStrikeSelect 0.8s ease-out;
-        }
-
-        @keyframes lightningStrikeSelect {
-            0% { 
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            20% { 
-                opacity: 1;
-                transform: scale(1.05);
-                filter: brightness(2);
-            }
-            40% { 
-                opacity: 0.7;
-                filter: brightness(1.5);
-            }
-            60% { 
-                opacity: 1;
-                filter: brightness(2);
-            }
-            100% { 
-                opacity: 0.3;
-                transform: scale(1);
-                filter: brightness(1);
-            }
-        }
-
         .label {
             display: block;
-            font-size: 0.875rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--text-primary);
             margin-bottom: 16px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-align: center;
         }
 
-        /* Premium Select Dropdown */
+        /* Select Dropdown */
         .select-wrapper {
             position: relative;
             margin-bottom: 20px;
@@ -659,78 +226,45 @@
 
         .select {
             width: 100%;
-            padding: 20px 24px;
+            padding: 18px 24px;
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-primary);
-            background: 
-                linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(255, 107, 53, 0.05) 100%),
-                rgba(0, 0, 0, 0.3);
-            border: 2px solid transparent;
+            background: rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.4);
             border-radius: 16px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
             cursor: pointer;
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                0 0 0 1px rgba(0, 212, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .select::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                transparent, 
-                rgba(0, 212, 255, 0.3), 
-                rgba(255, 255, 255, 0.5),
-                rgba(255, 107, 53, 0.3),
-                transparent);
-            transition: left 0.8s ease;
-            z-index: -1;
-        }
-
-        .select:hover::before {
-            left: 100%;
+                0 4px 20px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .select:focus {
             outline: none;
-            border-color: var(--accent-electric);
-            background: 
-                linear-gradient(135deg, rgba(0, 212, 255, 0.2) 0%, rgba(255, 107, 53, 0.1) 100%),
-                rgba(0, 0, 0, 0.4);
+            border-color: var(--primary-electric);
+            background: rgba(0, 0, 0, 0.8);
             box-shadow: 
-                0 0 0 4px rgba(0, 212, 255, 0.3),
-                0 12px 40px rgba(0, 212, 255, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 20px rgba(0, 212, 255, 0.4);
+                0 0 0 3px rgba(0, 212, 255, 0.3),
+                0 8px 30px rgba(0, 212, 255, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
 
         .select:hover {
             border-color: rgba(0, 212, 255, 0.6);
-            background: 
-                linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(255, 107, 53, 0.08) 100%),
-                rgba(0, 0, 0, 0.35);
+            background: rgba(0, 0, 0, 0.7);
             transform: translateY(-1px);
             box-shadow: 
-                0 12px 35px rgba(0, 212, 255, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15),
-                0 0 0 1px rgba(0, 212, 255, 0.4);
+                0 6px 25px rgba(0, 212, 255, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
-        /* Custom Lightning Arrow */
+        /* Custom arrow */
         .select-wrapper::after {
             content: '⚡';
             position: absolute;
@@ -738,22 +272,10 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 18px;
-            color: var(--accent-electric);
+            color: var(--primary-electric);
             pointer-events: none;
             transition: all 0.3s ease;
-            text-shadow: 
-                0 0 10px var(--accent-electric),
-                0 0 20px var(--accent-electric);
             animation: arrowPulse 2s ease-in-out infinite;
-        }
-
-        .select:focus + .select-wrapper::after,
-        .select-wrapper:hover::after {
-            transform: translateY(-50%) scale(1.3) rotate(15deg);
-            color: var(--accent-orange);
-            text-shadow: 
-                0 0 15px var(--accent-orange),
-                0 0 30px var(--accent-orange);
         }
 
         @keyframes arrowPulse {
@@ -763,48 +285,129 @@
             }
             50% { 
                 opacity: 1;
-                transform: translateY(-50%) scale(1.1);
-                text-shadow: 
-                    0 0 15px var(--accent-electric),
-                    0 0 30px var(--accent-electric),
-                    0 0 45px rgba(0, 212, 255, 0.5);
+                transform: translateY(-50%) scale(1.2);
+                text-shadow: 0 0 15px var(--primary-electric);
             }
         }
 
-        /* Option Styling with Electric Effects */
+        .select:focus + .select-wrapper::after,
+        .select-wrapper:hover::after {
+            transform: translateY(-50%) scale(1.4) rotate(15deg);
+            color: var(--secondary-orange);
+            text-shadow: 0 0 20px var(--secondary-orange);
+        }
+
+        /* Option styling */
         .select option {
-            background: linear-gradient(135deg, #1a1a2e 0%, #2c3e50 100%);
+            background: #1a1a1a;
             color: var(--text-primary);
-            padding: 15px;
-            font-weight: 600;
-            font-size: 1rem;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
+            padding: 12px;
+            font-weight: 500;
         }
 
-        .select option:hover {
-            background: linear-gradient(135deg, 
-                rgba(0, 212, 255, 0.3) 0%, 
-                rgba(255, 107, 53, 0.2) 50%,
-                rgba(0, 212, 255, 0.3) 100%);
-            color: white;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                margin: 10px auto;
+            }
+
+            .order-card {
+                padding: 30px 25px;
+                border-radius: 20px;
+            }
+            
+            .title {
+                font-size: 2rem;
+                margin-bottom: 10px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            
+            .select {
+                padding: 16px 20px;
+                font-size: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .label {
+                font-size: 0.9rem;
+                margin-bottom: 12px;
+            }
         }
 
-        .select option:checked,
-        .select option:focus {
-            background: linear-gradient(135deg, 
-                rgba(0, 212, 255, 0.4) 0%, 
-                rgba(255, 107, 53, 0.3) 50%,
-                rgba(0, 212, 255, 0.4) 100%);
-            color: white;
-            text-shadow: 
-                0 0 10px rgba(0, 212, 255, 1),
-                0 0 20px rgba(255, 255, 255, 0.8);
+        @media (max-width: 480px) {
+            .container {
+                width: 98%;
+                margin: 5px auto;
+            }
+            
+            .order-card {
+                padding: 25px 20px;
+                border-radius: 16px;
+            }
+            
+            .title {
+                font-size: 1.7rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .select {
+                padding: 14px 18px;
+                font-size: 0.95rem;
+            }
+
+            .select-wrapper::after {
+                right: 16px;
+                font-size: 16px;
+            }
         }
 
-        /* Electric Spark Effect on Select */
+        @media (max-width: 360px) {
+            .order-card {
+                padding: 20px 15px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .select {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading animation for better UX */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .order-card {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Enhanced electric border effect */
         .select-wrapper::before {
             content: '';
             position: absolute;
@@ -813,10 +416,10 @@
             right: -2px;
             bottom: -2px;
             background: linear-gradient(45deg, 
-                var(--accent-electric), 
-                var(--accent-orange), 
-                var(--accent-electric),
-                var(--accent-orange));
+                var(--primary-electric), 
+                var(--secondary-orange), 
+                var(--primary-electric),
+                var(--secondary-orange));
             background-size: 300% 300%;
             border-radius: 18px;
             opacity: 0;
@@ -825,9 +428,9 @@
             transition: opacity 0.3s ease;
         }
 
-        .select:focus ~ .select-wrapper::before,
-        .select:hover ~ .select-wrapper::before {
-            opacity: 0.7;
+        .select:focus + .select-wrapper::before,
+        .select:hover + .select-wrapper::before {
+            opacity: 0.4;
         }
 
         @keyframes electricBorder {
@@ -836,113 +439,54 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Decorative Elements */
-        .decoration {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 107, 53, 0.15));
-            filter: blur(60px);
+        /* Better focus indicators for accessibility */
+        .select:focus {
+            outline: 2px solid var(--primary-electric);
+            outline-offset: 2px;
         }
 
-        .decoration:nth-child(1) {
-            top: -60px;
-            right: -60px;
-            animation: electricPulse 3s ease-in-out infinite;
+        /* Smooth transitions for all interactive elements */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
         }
 
-        .decoration:nth-child(2) {
-            bottom: -60px;
-            left: -60px;
-            animation: electricPulse 3s ease-in-out infinite 1.5s;
-        }
-
-        @keyframes electricPulse {
-            0%, 100% { 
-                transform: scale(1); 
-                opacity: 0.3;
-                background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(255, 107, 53, 0.15));
-            }
-            50% { 
-                transform: scale(1.3); 
-                opacity: 0.7;
-                background: linear-gradient(135deg, rgba(0, 212, 255, 0.25), rgba(255, 107, 53, 0.25));
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .order-card {
-                padding: 32px 24px;
-                border-radius: 20px;
-                margin: 20px;
-            }
-            
-            .title {
-                font-size: 1.8rem;
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --glass-bg: rgba(0, 0, 0, 0.9);
+                --glass-border: rgba(255, 255, 255, 0.8);
             }
             
             .select {
-                padding: 16px 20px;
+                border-width: 3px;
             }
         }
 
-        @media (max-width: 480px) {
-            .container {
-                width: 95%;
-            }
-            
-            .order-card {
-                padding: 24px 20px;
-            }
-            
-            .title {
-                font-size: 1.6rem;
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Electric Current Flow Lines -->
-    <div class="electric-flow">
-        <div class="flow-line horizontal" style="top: 20%; animation-delay: 0s;"></div>
-        <div class="flow-line horizontal" style="top: 40%; animation-delay: 1s;"></div>
-        <div class="flow-line horizontal" style="top: 60%; animation-delay: 2s;"></div>
-        <div class="flow-line horizontal" style="top: 80%; animation-delay: 0.5s;"></div>
-        <div class="flow-line vertical" style="left: 25%; animation-delay: 1.5s;"></div>
-        <div class="flow-line vertical" style="left: 50%; animation-delay: 2.5s;"></div>
-        <div class="flow-line vertical" style="left: 75%; animation-delay: 0.8s;"></div>
-    </div>
-
-    <!-- Lightning Effects -->
-    <div class="lightning-container">
-        <div class="lightning" style="--rotation: 2deg;"></div>
-        <div class="lightning" style="--rotation: -1deg;"></div>
-        <div class="lightning" style="--rotation: 1deg;"></div>
-        <div class="lightning" style="--rotation: -2deg;"></div>
-        <div class="lightning" style="--rotation: 0.5deg;"></div>
-    </div>
-
-    <!-- Floating Particles -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+    <!-- Electric particles -->
+    <div class="electric-particles">
+        <div class="particle" style="top: 20%; left: 15%; width: 6px; height: 6px; animation-duration: 6s; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 50%; left: 85%; width: 8px; height: 8px; animation-duration: 8s; animation-delay: 1s;"></div>
+        <div class="particle" style="top: 30%; left: 70%; width: 4px; height: 4px; animation-duration: 7s; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 80%; left: 20%; width: 7px; height: 7px; animation-duration: 9s; animation-delay: 0.5s;"></div>
+        <div class="particle" style="top: 60%; left: 40%; width: 5px; height: 5px; animation-duration: 6.5s; animation-delay: 1.5s;"></div>
+        <div class="particle" style="top: 10%; left: 90%; width: 6px; height: 6px; animation-duration: 7.5s; animation-delay: 2.5s;"></div>
     </div>
 
     <div class="container">
         <div class="order-card">
-            <!-- Decorative Elements -->
-            <div class="decoration"></div>
-            <div class="decoration"></div>
-
             <div class="header">
                 <h1 class="title">⚡ Electrical Solutions</h1>
                 <p class="subtitle">Inovasi teknologi electrical engineering terdepan</p>
@@ -965,5 +509,70 @@
             </form>
         </div>
     </div>
+
+    <script>
+        // Dynamic particle generation
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            particle.style.width = (Math.random() * 6 + 4) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.querySelector('.electric-particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 1200);
+
+        // Electric hover effects
+        document.querySelectorAll('.select').forEach(select => {
+            select.addEventListener('mouseenter', function() {
+                this.style.borderColor = 'rgba(0, 212, 255, 0.8)';
+                this.style.boxShadow = '0 0 20px rgba(0, 212, 255, 0.3)';
+            });
+            
+            select.addEventListener('mouseleave', function() {
+                if (this !== document.activeElement) {
+                    this.style.borderColor = 'rgba(0, 212, 255, 0.4)';
+                    this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+                }
+            });
+        });
+
+        // Smooth loading animation
+        window.addEventListener('load', function() {
+            document.querySelector('.order-card').style.opacity = '1';
+            document.querySelector('.order-card').style.transform = 'translateY(0)';
+        });
+
+        // Enhanced keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                const focusedElement = document.activeElement;
+                if (focusedElement.classList.contains('select')) {
+                    focusedElement.style.boxShadow = '0 0 0 3px rgba(0, 212, 255, 0.5)';
+                }
+            }
+        });
+
+        // Accessibility improvements
+        document.querySelector('.select').addEventListener('change', function() {
+            if (this.value) {
+                // Add visual feedback when selection is made
+                this.style.background = 'rgba(0, 212, 255, 0.1)';
+                setTimeout(() => {
+                    this.style.background = 'rgba(0, 0, 0, 0.6)';
+                }, 500);
+            }
+        });
+    </script>
 </body>
 </html>
