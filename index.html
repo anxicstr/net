@@ -224,11 +224,12 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             border: 2px solid transparent;
             background-clip: padding-box;
+            transform-style: preserve-3d;
         }
 
         .menu a::before {
@@ -238,57 +239,123 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+            z-index: 0;
         }
 
         .menu a:hover::before {
             left: 100%;
         }
 
+        .menu a:hover::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        .menu a:active {
+            transform: translateY(2px) scale(0.95);
+        }
+
         .whatsapp {
-            background: linear-gradient(45deg, #25D366, #128C7E);
-            border-color: #25D366;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 50%, #075E54 100%);
+            border: 2px solid #25D366;
             box-shadow: 
-                0 0 20px rgba(37, 211, 102, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                0 8px 25px rgba(37, 211, 102, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
         }
 
         .whatsapp:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-8px) rotateX(10deg) scale(1.05);
             box-shadow: 
-                0 10px 30px rgba(37, 211, 102, 0.7),
-                0 0 40px rgba(37, 211, 102, 0.8);
+                0 20px 40px rgba(37, 211, 102, 0.6),
+                0 0 30px rgba(37, 211, 102, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         .linkorder {
-            background: linear-gradient(45deg, #eb6308, #f97316);
-            border-color: #eb6308;
+            background: linear-gradient(135deg, #eb6308 0%, #f97316 50%, #ea580c 100%);
+            border: 2px solid #eb6308;
             box-shadow: 
-                0 0 20px rgba(235, 99, 8, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                0 8px 25px rgba(235, 99, 8, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
         }
 
         .linkorder:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-8px) rotateX(10deg) scale(1.05);
             box-shadow: 
-                0 10px 30px rgba(235, 99, 8, 0.7),
-                0 0 40px rgba(235, 99, 8, 0.8);
+                0 20px 40px rgba(235, 99, 8, 0.6),
+                0 0 30px rgba(235, 99, 8, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
         }
 
         .bird {
-            background: linear-gradient(45deg, #09d1f5, #0ea5e9);
-            border-color: #09d1f5;
+            background: linear-gradient(135deg, #09d1f5 0%, #0ea5e9 50%, #0284c7 100%);
+            border: 2px solid #09d1f5;
             box-shadow: 
-                0 0 20px rgba(9, 209, 245, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                0 8px 25px rgba(9, 209, 245, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
         }
 
         .bird:hover {
-            transform: translateY(-5px) scale(1.05);
+            transform: translateY(-8px) rotateX(10deg) scale(1.05);
             box-shadow: 
-                0 10px 30px rgba(9, 209, 245, 0.7),
-                0 0 40px rgba(9, 209, 245, 0.8);
+                0 20px 40px rgba(9, 209, 245, 0.6),
+                0 0 30px rgba(9, 209, 245, 0.8),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Button pulse animation */
+        .menu a {
+            animation: buttonPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 8px 25px rgba(var(--button-color), 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 8px 25px rgba(var(--button-color), 0.6),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .whatsapp {
+            --button-color: 37, 211, 102;
+        }
+
+        .linkorder {
+            --button-color: 235, 99, 8;
+        }
+
+        .bird {
+            --button-color: 9, 209, 245;
         }
 
         /* Electric symbols animation */
