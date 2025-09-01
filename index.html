@@ -24,6 +24,40 @@
             position: relative;
         }
 
+        /* Music control button */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0096ff, #004080);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 0 20px rgba(0, 150, 255, 0.5),
+                inset 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 
+                0 0 30px rgba(0, 150, 255, 0.8),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .music-control span {
+            color: #ffffff;
+            font-size: 20px;
+            text-shadow: 0 0 10px #ffffff;
+        }
+
         @keyframes electricGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -444,7 +478,87 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Electric cursor trail effect */
+        /* Music start button */
+        .music-start-btn {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #0096ff, #004080, #0096ff);
+            background-size: 200% 200%;
+            border: 2px solid #ffffff;
+            border-radius: 50px;
+            padding: 15px 30px;
+            color: #ffffff;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 4;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 10px #ffffff;
+            box-shadow: 
+                0 0 30px rgba(0, 150, 255, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: musicButtonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes musicButtonPulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                box-shadow: 
+                    0 0 30px rgba(0, 150, 255, 0.6),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                transform: translateX(-50%) scale(1.05);
+                box-shadow: 
+                    0 0 40px rgba(0, 150, 255, 0.8),
+                    inset 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .music-start-btn:hover {
+            transform: translateX(-50%) scale(1.1) rotateX(10deg);
+            background-position: 100% 0%;
+            box-shadow: 
+                0 15px 50px rgba(0, 150, 255, 0.9),
+                0 0 60px rgba(0, 150, 255, 1),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+            text-shadow: 
+                0 0 20px #ffffff,
+                0 0 30px #0096ff;
+        }
+
+        .music-start-btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
+        .music-start-btn.playing {
+            background: linear-gradient(135deg, #25D366, #128C7E, #25D366);
+            animation: playingPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes playingPulse {
+            0%, 100% {
+                box-shadow: 
+                    0 0 30px rgba(37, 211, 102, 0.6),
+                    inset 0 0 20px rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 50px rgba(37, 211, 102, 0.9),
+                    inset 0 0 30px rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        /* Hide music start button when music is playing */
+        .music-start-btn.hidden {
+            opacity: 0;
+            transform: translateX(-50%) scale(0);
+            pointer-events: none;
+        }
         .cursor-trail {
             position: absolute;
             width: 10px;
@@ -470,6 +584,19 @@
 </head>
 <body>
 
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop>
+        <source src="watch.mp3" type="audio/mpeg">
+        <source src="watch.wav" type="audio/wav">
+        <source src="watch.ogg" type="audio/ogg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Control Button -->
+    <div class="music-control" id="musicControl">
+        <span id="musicIcon">🔊</span>
+    </div>
+
     <!-- Electric particles -->
     <div class="electric-particles">
         <div class="particle" style="top: 20%; left: 15%; width: 8px; height: 8px; animation-duration: 5s; animation-delay: 0s;"></div>
@@ -491,6 +618,11 @@
 
     <!-- Main title with electric effect -->
     <div class="anxic-text">Y U D A</div>
+
+    <!-- Music Start Button -->
+    <button class="music-start-btn" id="musicStartBtn">
+        🎵 START MUSIC
+    </button>
 
     <div class="menu">
         <h2>
