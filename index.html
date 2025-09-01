@@ -6,241 +6,538 @@
     <meta name="description" content="Profile page for Anxic.str. Connect via WhatsApp, view orders, or follow on TikTok.">
     <title>anxic.str</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
             background: url('bganxic.jpg') no-repeat center center fixed;
             background-size: cover;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
-        /* Efek bintang */
-        .stars {
+        @keyframes electricGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Electric grid background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 150, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 150, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Enhanced electric particles */
+        .electric-particles {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
+            z-index: 1;
             overflow: hidden;
         }
 
-        .star {
+        .particle {
             position: absolute;
-            background-color: #fff;
+            background: radial-gradient(circle, #0096ff, #004080, transparent);
             border-radius: 50%;
-            opacity: 0.8;
-            animation: starAnimation 15s linear infinite;
+            opacity: 0;
+            animation: electricFloat 6s ease-in-out infinite;
         }
 
-        @keyframes starAnimation {
+        .particle:nth-child(odd) {
+            background: radial-gradient(circle, #0080ff, #003366, transparent);
+        }
+
+        @keyframes electricFloat {
             0% {
-                transform: translateY(0) scale(1);
-                opacity: 0.8;
+                transform: translateY(100vh) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
             }
             50% {
-                transform: translateY(100vh) scale(1.5);
-                opacity: 0.6;
+                transform: translateY(50vh) scale(1) rotate(180deg);
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) scale(1);
-                opacity: 0.8;
+                transform: translateY(-10vh) scale(0) rotate(360deg);
+                opacity: 0;
             }
         }
 
-        /* Menu */
+        /* Electric lightning effects */
+        .lightning {
+            position: absolute;
+            width: 2px;
+            height: 100vh;
+            background: linear-gradient(to bottom, transparent, #0096ff, transparent);
+            opacity: 0;
+            animation: lightning 4s ease-in-out infinite;
+        }
+
+        @keyframes lightning {
+            0%, 90%, 100% { opacity: 0; }
+            5%, 10% { opacity: 1; box-shadow: 0 0 20px #0096ff; }
+        }
+
+        /* Main title with electric effect */
+        .anxic-text {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: #0096ff;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: clamp(0.5rem, 2vw, 1rem);
+            text-shadow: 
+                0 0 10px #0096ff,
+                0 0 20px #0096ff,
+                0 0 30px #0096ff,
+                0 0 40px #004080;
+            z-index: 3;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: electricPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes electricPulse {
+            0% {
+                text-shadow: 
+                    0 0 10px #0096ff,
+                    0 0 20px #0096ff,
+                    0 0 30px #0096ff,
+                    0 0 40px #004080;
+                transform: translateX(-50%) scale(1);
+            }
+            100% {
+                text-shadow: 
+                    0 0 20px #0096ff,
+                    0 0 30px #0096ff,
+                    0 0 40px #0096ff,
+                    0 0 50px #004080,
+                    0 0 60px #001a33;
+                transform: translateX(-50%) scale(1.05);
+            }
+        }
+
+        /* Enhanced menu container */
         .menu {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 2px solid #0096ff;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px rgba(0, 150, 255, 0.5),
+                inset 0 0 20px rgba(0, 150, 255, 0.1);
             max-width: 90%;
-            width: 400px;
+            width: 450px;
             position: relative;
-            z-index: 2;
+            z-index: 3;
+            padding: 2rem;
+            animation: menuGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes menuGlow {
+            0% {
+                box-shadow: 
+                    0 0 30px rgba(0, 150, 255, 0.5),
+                    inset 0 0 20px rgba(0, 150, 255, 0.1);
+            }
+            100% {
+                box-shadow: 
+                    0 0 50px rgba(0, 150, 255, 0.8),
+                    inset 0 0 30px rgba(0, 150, 255, 0.2);
+            }
         }
 
         .menu h2 {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: #333;
-            text-shadow: 2px 2px 4px #000000;
+            margin-bottom: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px #ffffff,
+                0 0 20px #ffffff,
+                2px 2px 4px rgba(0, 0, 0, 0.8);
+            font-weight: 700;
+            position: relative;
+            cursor: default;
         }
 
-        .menu a {
+        /* Scatter text effect for MY PROFILE */
+        .profile-text {
+            position: relative;
             display: inline-block;
-            margin: 12px;
-            padding: 12px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .profile-text .letter {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        /* Electric button styles */
+        .menu a {
+            display: block;
+            margin: 1rem 0;
+            padding: 1rem 2rem;
             text-decoration: none;
             color: #fff;
-            border-radius: 5px;
-            font-size: 18px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            animation: heartBeat 1.5s ease-out infinite;
+            border-radius: 15px;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
 
-        @keyframes heartBeat {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
+        .menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu a:hover::before {
+            left: 100%;
         }
 
         .whatsapp {
-            background-color: #25D366;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            border-color: #25D366;
+            box-shadow: 
+                0 0 20px rgba(37, 211, 102, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 10px 30px rgba(37, 211, 102, 0.7),
+                0 0 40px rgba(37, 211, 102, 0.8);
         }
 
         .linkorder {
-            background-color: #eb6308;
+            background: linear-gradient(45deg, #eb6308, #f97316);
+            border-color: #eb6308;
+            box-shadow: 
+                0 0 20px rgba(235, 99, 8, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .linkorder:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 10px 30px rgba(235, 99, 8, 0.7),
+                0 0 40px rgba(235, 99, 8, 0.8);
         }
 
         .bird {
-            background-color: #09d1f5;
+            background: linear-gradient(45deg, #09d1f5, #0ea5e9);
+            border-color: #09d1f5;
+            box-shadow: 
+                0 0 20px rgba(9, 209, 245, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
-        .menu a:hover {
-            opacity: 0.8;
+        .bird:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 10px 30px rgba(9, 209, 245, 0.7),
+                0 0 40px rgba(9, 209, 245, 0.8);
         }
 
-        /* Animasi huruf ANXIC */
-        .anxic-text {
-            font-size: 6vw; /* Ukuran font lebih kecil (6vw) */
-            color: white; /* Ubah warna teks menjadi putih */
-            text-align: center;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 2vw; /* Menyebarkan huruf sedikit lebih rapat */
-            text-shadow: 2px 2px 5px red;
-            z-index: 1;
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: mergeLetters 3s ease-in-out infinite; /* Berulang */
-        }
-
-        /* Efek animasi huruf ANXIC bergabung dan terpisah */
-        @keyframes mergeLetters {
-            0% {
-                letter-spacing: 2vw;
-                opacity: 0;
-            }
-            25% {
-                letter-spacing: 1vw;
-                opacity: 1;
-            }
-            50% {
-                letter-spacing: 0.5vw;
-                opacity: 1;
-            }
-            75% {
-                letter-spacing: 1vw;
-                opacity: 1;
-            }
-            100% {
-                letter-spacing: 2vw;
-                opacity: 0;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .menu {
-                width: 90%;
-                padding: 15px;
-            }
-
-            .menu h2 {
-                font-size: 24px;
-                margin-bottom: 15px;
-            }
-
-            .menu a {
-                font-size: 16px;
-                padding: 10px 20px;
-            }
-
-            .plus-sign, .minus-sign {
-                font-size: 24px;
-            }
-        }
-
+        /* Electric symbols animation */
         .plus-sign {
-            margin-right: 10px;
-            font-size: 30px;
-            color: red;
-            text-shadow: 3px 3px 4px white;
-            animation: rotatePlus 10s linear infinite;
-            z-index: 2;
-            pointer-events: none;
+            margin-right: 15px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #0096ff;
+            text-shadow: 
+                0 0 10px #0096ff,
+                0 0 20px #0096ff;
+            animation: electricSpin 8s linear infinite;
+            display: inline-block;
         }
 
-        @keyframes rotatePlus {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+        @keyframes electricSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1); }
+            75% { transform: rotate(270deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .minus-sign {
-            margin-left: 10px;
-            font-size: 30px;
-            color: black;
-            text-shadow: 3px 3px 4px white;
-            animation: rotateMinus 10s linear infinite;
-            z-index: 2;
-            pointer-events: none;
+            margin-left: 15px;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #0096ff;
+            text-shadow: 
+                0 0 10px #0096ff,
+                0 0 20px #0096ff;
+            animation: electricSpin 8s linear infinite reverse;
+            display: inline-block;
         }
 
-        @keyframes rotateMinus {
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .menu {
+                width: 95%;
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .anxic-text {
+                top: 10%;
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+
+            .menu a {
+                padding: 0.8rem 1.5rem;
+                margin: 0.8rem 0;
+                font-size: clamp(0.9rem, 4vw, 1.1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu {
+                width: 98%;
+                padding: 1rem;
+            }
+
+            .anxic-text {
+                top: 8%;
+            }
+
+            .menu h2 {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Electric border animation */
+        .menu::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #0096ff, #004080, #0080ff, #0096ff);
+            border-radius: 22px;
+            z-index: -1;
+            animation: electricBorder 3s linear infinite;
+        }
+
+        @keyframes electricBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Electric cursor trail effect */
+        .cursor-trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #0096ff, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            animation: trailFade 1s ease-out forwards;
+        }
+
+        @keyframes trailFade {
             0% {
-                transform: rotate(0deg);
+                opacity: 1;
+                transform: scale(1);
             }
             100% {
-                transform: rotate(360deg);
+                opacity: 0;
+                transform: scale(2);
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="stars">
-        <div class="star" style="top: 20%; left: 15%; width: 15px; height: 15px; animation-duration: 8s;"></div>
-        <div class="star" style="top: 50%; left: 50%; width: 20px; height: 20px; animation-duration: 10s;"></div>
-        <div class="star" style="top: 30%; left: 70%; width: 18px; height: 18px; animation-duration: 12s;"></div>
-        <div class="star" style="top: 80%; left: 20%; width: 25px; height: 25px; animation-duration: 9s;"></div>
-        <div class="star" style="top: 60%; left: 80%; width: 22px; height: 22px; animation-duration: 11s;"></div>
-        <div class="star" style="top: 40%; left: 40%; width: 16px; height: 16px; animation-duration: 10s;"></div>
-        <div class="star" style="top: 10%; left: 90%; width: 30px; height: 30px; animation-duration: 13s;"></div>
-        <div class="star" style="top: 90%; left: 60%; width: 14px; height: 14px; animation-duration: 7s;"></div>
+    <!-- Electric particles -->
+    <div class="electric-particles">
+        <div class="particle" style="top: 20%; left: 15%; width: 8px; height: 8px; animation-duration: 5s; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 50%; left: 85%; width: 12px; height: 12px; animation-duration: 7s; animation-delay: 1s;"></div>
+        <div class="particle" style="top: 30%; left: 70%; width: 6px; height: 6px; animation-duration: 6s; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 80%; left: 20%; width: 10px; height: 10px; animation-duration: 8s; animation-delay: 0.5s;"></div>
+        <div class="particle" style="top: 60%; left: 40%; width: 14px; height: 14px; animation-duration: 5.5s; animation-delay: 1.5s;"></div>
+        <div class="particle" style="top: 40%; left: 90%; width: 8px; height: 8px; animation-duration: 7.5s; animation-delay: 2.5s;"></div>
+        <div class="particle" style="top: 10%; left: 30%; width: 16px; height: 16px; animation-duration: 6.5s; animation-delay: 3s;"></div>
+        <div class="particle" style="top: 90%; left: 60%; width: 10px; height: 10px; animation-duration: 8.5s; animation-delay: 1.8s;"></div>
+        <div class="particle" style="top: 25%; left: 50%; width: 12px; height: 12px; animation-duration: 7.2s; animation-delay: 2.2s;"></div>
+        <div class="particle" style="top: 70%; left: 80%; width: 9px; height: 9px; animation-duration: 6.8s; animation-delay: 0.8s;"></div>
     </div>
 
-    <!-- Teks ANXIC -->
-    <div class="anxic-text">Y U D A C U Y</div>
+    <!-- Lightning effects -->
+    <div class="lightning" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="lightning" style="left: 50%; animation-delay: 2s;"></div>
+    <div class="lightning" style="left: 90%; animation-delay: 4s;"></div>
+
+    <!-- Main title with electric effect -->
+    <div class="anxic-text">Y U D A</div>
 
     <div class="menu">
         <h2>
-            <span class="plus-sign">+</span> MY PROFILE <span class="minus-sign">-</span>
+            <span class="plus-sign">⚡</span> 
+            <span class="profile-text" id="profileText">MY PROFILE</span> 
+            <span class="minus-sign">⚡</span>
         </h2>
-        <a href="https://wa.me/6283161666194" class="whatsapp" target="_blank" aria-label="Chat via WhatsApp">WhatsApp</a>
-        <a href="order.html" class="linkorder" aria-label="Order Page">Buy Arduino</a>
-        <a href="https://wa.me/6283161666194" class="bird" target="_blank" aria-label="FlyBird">Buy Nokos</a>
+        <a href="https://wa.me/6283161666194" class="whatsapp" target="_blank" aria-label="Chat via WhatsApp">
+            💬 WhatsApp
+        </a>
+        <a href="order.html" class="linkorder" aria-label="Order Page">
+            🛒 Buy Arduino
+        </a>
+        <a href="https://wa.me/6283161666194" class="bird" target="_blank" aria-label="FlyBird">
+            🎮 Buy Nokos
+        </a>
     </div>
+
+    <script>
+        // Electric cursor trail effect
+        document.addEventListener('mousemove', function(e) {
+            if (window.innerWidth > 768) { // Only on desktop
+                const trail = document.createElement('div');
+                trail.className = 'cursor-trail';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
+                
+                setTimeout(() => {
+                    trail.remove();
+                }, 1000);
+            }
+        });
+
+        // Dynamic particle generation
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '100%';
+            particle.style.width = (Math.random() * 10 + 5) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.querySelector('.electric-particles').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Generate particles periodically
+        setInterval(createParticle, 800);
+
+        // Add electric sound effect on button hover (visual feedback)
+        document.querySelectorAll('.menu a').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.filter = 'brightness(1.2) saturate(1.5)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.filter = 'brightness(1) saturate(1)';
+            });
+        });
+
+        // Letter scatter effect for MY PROFILE
+        const profileText = document.getElementById('profileText');
+        if (profileText) {
+            // Split text into individual letters
+            const text = profileText.textContent;
+            profileText.innerHTML = '';
+            
+            text.split('').forEach((char, index) => {
+                const span = document.createElement('span');
+                span.className = 'letter';
+                span.textContent = char === ' ' ? '\u00A0' : char; // Non-breaking space
+                span.style.transitionDelay = `${index * 0.02}s`;
+                profileText.appendChild(span);
+            });
+
+            // Mouse proximity detection for letter scattering
+            document.addEventListener('mousemove', function(e) {
+                const letters = profileText.querySelectorAll('.letter');
+                const rect = profileText.getBoundingClientRect();
+                
+                letters.forEach((letter, index) => {
+                    const letterRect = letter.getBoundingClientRect();
+                    const letterCenterX = letterRect.left + letterRect.width / 2;
+                    const letterCenterY = letterRect.top + letterRect.height / 2;
+                    
+                    const deltaX = e.clientX - letterCenterX;
+                    const deltaY = e.clientY - letterCenterY;
+                    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                    
+                    if (distance < 80) { // Within 80px radius
+                        const scatterStrength = (80 - distance) / 80;
+                        const scatterX = -deltaX * scatterStrength * 0.8;
+                        const scatterY = -deltaY * scatterStrength * 0.8;
+                        
+                        // Add some randomness to make it look more natural
+                        const randomX = (Math.random() - 0.5) * scatterStrength * 20;
+                        const randomY = (Math.random() - 0.5) * scatterStrength * 20;
+                        
+                        letter.style.transform = `translate(${scatterX + randomX}px, ${scatterY + randomY}px) rotate(${scatterStrength * 15}deg)`;
+                        letter.style.opacity = Math.max(0.3, 1 - scatterStrength * 0.7);
+                    } else {
+                        letter.style.transform = 'translate(0px, 0px) rotate(0deg)';
+                        letter.style.opacity = '1';
+                    }
+                });
+            });
+        }
+    </script>
 
 </body>
 </html>
-
-
