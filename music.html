@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Spotify-Like Music Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                linear-gradient(135deg, rgba(18, 18, 18, 0.85) 0%, rgba(29, 29, 29, 0.9) 100%),
+                url('./yuda.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #1db954, #1ed760);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #b3b3b3;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .music-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .music-item {
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-item:hover {
+            background: rgba(50, 50, 50, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .music-item.playing {
+            background: rgba(29, 185, 84, 0.2);
+            border-color: #1db954;
+            box-shadow: 0 8px 25px rgba(29, 185, 84, 0.3);
+        }
+
+        .album-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .album-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .music-item:hover .album-art img {
+            transform: scale(1.1);
+        }
+
+        .music-info {
+            flex-grow: 1;
+        }
+
+        .music-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+            user-select: none;
+        }
+
+        .music-artist {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+
+        .music-duration {
+            color: #666;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            user-select: none;
+        }
+
+        .player-controls {
+            background: rgba(18, 18, 18, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            position: sticky;
+            bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            max-width: 1200px;
+            margin: 0 auto;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .now-playing {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .now-playing-art img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .now-playing-info {
+            flex-grow: 1;
+        }
+
+        .now-playing-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .now-playing-artist {
+            color: #b3b3b3;
+            font-size: 0.9rem;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: #b3b3b3;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .play-btn {
+            background: #1db954;
+            color: #000000;
+            width: 50px;
+            height: 50px;
+            font-size: 1.8rem;
+        }
+
+        .play-btn:hover {
+            background: #1ed760;
+            transform: scale(1.1);
+        }
+
+        .progress-container {
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: #404040;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: #1db954;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            color: #b3b3b3;
+            font-size: 0.8rem;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .volume-slider {
+            flex-grow: 1;
+            height: 4px;
+            background: #404040;
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #1db954;
+            cursor: pointer;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            color: #ff9999;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .music-list {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .album-art {
+                width: 70px;
+                height: 70px;
+            }
+            .now-playing-art img {
+                width: 50px;
+                height: 50px;
+            }
+            .play-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Mobile Responsive for Background */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll; /* Fixed attachment can cause issues on mobile */
+            }
+            
+            .music-list {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .music-item {
+                padding: 15px;
+                background: rgba(30, 30, 30, 0.95);
+                backdrop-filter: blur(25px);
+            }
+            .album-art {
+                width: 60px;
+                height: 60px;
+            }
+            .music-title {
+                font-size: 1rem;
+            }
+            .music-artist {
+                font-size: 0.8rem;
+            }
+            .now-playing-title {
+                font-size: 1rem;
+            }
+            .now-playing-artist {
+                font-size: 0.8rem;
+            }
+            .control-btn {
+                font-size: 1.2rem;
+                padding: 8px;
+                width: 40px;
+                height: 40px;
+            }
+            .play-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            .volume-control {
+                margin-top: 10px;
+            }
+            .player-controls {
+                padding: 20px;
+                bottom: 15px;
+                background: rgba(18, 18, 18, 0.98);
+                backdrop-filter: blur(25px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                background-attachment: scroll;
+            }
+            .header {
+                padding: 15px;
+                background: rgba(0, 0, 0, 0.4);
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .music-item {
+                padding: 12px;
+                gap: 10px;
+                background: rgba(30, 30, 30, 0.97);
+                backdrop-filter: blur(30px);
+            }
+            .album-art {
+                width: 50px;
+                height: 50px;
+            }
+            .music-title {
+                font-size: 0.95rem;
+            }
+            .music-artist {
+                font-size: 0.75rem;
+            }
+            .now-playing-title {
+                font-size: 0.95rem;
+            }
+            .now-playing-artist {
+                font-size: 0.75rem;
+            }
+            .control-btn {
+                font-size: 1rem;
+                padding: 6px;
+                width: 35px;
+                height: 35px;
+            }
+            .play-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+            }
+            .volume-control {
+                margin-top: 8px;
+            }
+            .player-controls {
+                padding: 15px;
+                bottom: 10px;
+                background: rgba(18, 18, 18, 0.98);
+                backdrop-filter: blur(30px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎵 My Music Player</h1>
+            <p>Dengarkan musik favoritmu dengan kualitas terbaik</p>
+        </div>
+
+        <div class="music-list" id="musicList">
+            <!-- Daftar lagu akan di-generate oleh JavaScript -->
+        </div>
+
+        <div class="player-controls" id="playerControls">
+            <div class="now-playing">
+                <div class="now-playing-art">
+                    <img src="https://placehold.co/300x300" alt="Album cover artwork" id="nowPlayingArt" />
+                </div>
+                <div class="now-playing-info">
+                    <div class="now-playing-title" id="nowPlayingTitle">Pilih lagu untuk diputar</div>
+                    <div class="now-playing-artist" id="nowPlayingArtist">-</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" onclick="previousSong()">⏮</button>
+                <button class="control-btn play-btn" onclick="togglePlay()" id="playBtn">▶</button>
+                <button class="control-btn" onclick="nextSong()">⏭</button>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar" onclick="seekAudio(event)">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="time-display">
+                    <span id="currentTime">0:00</span>
+                    <span id="totalTime">0:00</span>
+                </div>
+            </div>
+
+            <div class="volume-control">
+                <span>🔈</span>
+                <input type="range" class="volume-slider" id="volume" min="0" max="1" step="0.1" value="0.7" oninput="setVolume(this.value)" />
+                <span>🔊</span>
+            </div>
+        </div>
+
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <script>
+        const musicList = [
+            {
+                title: "w a t c h",
+                artist: "Billie Eilish",
+                src: "./watch.mp3",
+                duration: "3:45",
+                image: "./watch.jpg"
+            },
+            {
+                title: "w i l d f l o w e r",
+                artist: "Billie Eilish",
+                src: "./wildflower.mp3",
+                duration: "4:12",
+                image: "./wildflower.jpg"
+            },
+            {
+                title: "terbuang dalam waktu",
+                artist: "Barasuara",
+                src: "./terbuangdalamwaktu.mp3",
+                duration: "3:58",
+                image: "./terbuangdalamwaktu.jpg"
+            },
+            {
+                title: "cut that always bleeds",
+                artist: "conan gray",
+                src: "./cutthatalwaysbleeds.mp3",
+                duration: "4:25",
+                image: "./cutthaalwaysbleeds.jpg"
+            },
+            {
+                title: "hal terindah",
+                artist: "Seventeen",
+                src: "./halterindah.mp3",
+                duration: "3:30",
+                image: "./halterindah.jpg"
+            },
+            {
+                title: "sumpah ku mencintaimu",
+                artist: "Seventeen",
+                src: "./sumpahkumencintaimu.mp3",
+                duration: "4:05",
+                image: "./sumpahkumencintaimu.jpg"
+            }
+        ];
+
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        const audio = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        function generateMusicList() {
+            const musicListElement = document.getElementById('musicList');
+            musicListElement.innerHTML = '';
+
+            musicList.forEach((song, index) => {
+                const musicItem = document.createElement('div');
+                musicItem.className = 'music-item';
+                musicItem.onclick = () => playSong(index);
+                musicItem.innerHTML = `
+                    <div class="album-art">
+                        <img src="${song.image}" alt="Album cover for ${song.title} by ${song.artist}" />
+                    </div>
+                    <div class="music-info">
+                        <div class="music-title">${song.title}</div>
+                        <div class="music-artist">${song.artist}</div>
+                    </div>
+                    <div class="music-duration">${song.duration}</div>
+                `;
+                musicListElement.appendChild(musicItem);
+            });
+        }
+
+        function playSong(index) {
+            currentSongIndex = index;
+            const song = musicList[index];
+
+            // Reset audio element
+            audio.pause();
+            audio.currentTime = 0;
+            
+            // Set new source
+            audio.src = song.src;
+            
+            // Try to play the audio
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    playBtn.textContent = '⏸';
+                    
+                    document.getElementById('nowPlayingArt').src = song.image;
+                    document.getElementById('nowPlayingTitle').textContent = song.title;
+                    document.getElementById('nowPlayingArtist').textContent = song.artist;
+
+                    document.querySelectorAll('.music-item').forEach((item, i) => {
+                        item.classList.toggle('playing', i === index);
+                    });
+                }).catch(error => {
+                    console.error('Error playing audio:', error);
+                    showError(`Tidak dapat memutar "${song.title}". Pastikan file audio tersedia.`);
+                    playBtn.textContent = '▶';
+                    isPlaying = false;
+                });
+            }
+        }
+
+        function togglePlay() {
+            if (audio.src === '' || audio.src.includes('placehold.co')) {
+                playSong(0);
+                return;
+            }
+
+            if (audio.paused) {
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isPlaying = true;
+                        playBtn.textContent = '⏸';
+                    }).catch(error => {
+                        console.error('Error playing audio:', error);
+                        showError('Tidak dapat memutar audio. Pastikan file tersedia.');
+                    });
+                }
+            } else {
+                audio.pause();
+                isPlaying = false;
+                playBtn.textContent = '▶';
+            }
+        }
+
+        function previousSong() {
+            currentSongIndex--;
+            if (currentSongIndex < 0) {
+                currentSongIndex = musicList.length - 1;
+            }
+            playSong(currentSongIndex);
+        }
+
+        function nextSong() {
+            currentSongIndex++;
+            if (currentSongIndex >= musicList.length) {
+                currentSongIndex = 0;
+            }
+            playSong(currentSongIndex);
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            const progress = document.getElementById('progress');
+            const currentTimeEl = document.getElementById('currentTime');
+            const totalTimeEl = document.getElementById('totalTime');
+
+            if (audio.duration && !isNaN(audio.duration)) {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progress.style.width = progressPercent + '%';
+
+                const formatTime = (time) => {
+                    const minutes = Math.floor(time / 60);
+                    const seconds = Math.floor(time % 60);
+                    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                };
+
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+                totalTimeEl.textContent = formatTime(audio.duration);
+            }
+        });
+
+        function seekAudio(event) {
+            const progressBar = event.currentTarget;
+            const width = progressBar.clientWidth;
+            const clickX = event.offsetX;
+            const duration = audio.duration;
+
+            if (duration && !isNaN(duration)) {
+                audio.currentTime = (clickX / width) * duration;
+            }
+        }
+
+        function setVolume(value) {
+            audio.volume = value;
+        }
+
+        // Handle audio loading errors
+        audio.addEventListener('error', (e) => {
+            console.error('Audio error:', e);
+            const currentSong = musicList[currentSongIndex];
+            showError(`Gagal memuat "${currentSong.title}". Periksa apakah file audio tersedia.`);
+            playBtn.textContent = '▶';
+            isPlaying = false;
+        });
+
+        // Handle when audio can't be loaded
+        audio.addEventListener('loadstart', () => {
+            // Audio is starting to load
+        });
+
+        audio.addEventListener('loadeddata', () => {
+            // Audio data has been loaded
+        });
+
+        audio.addEventListener('ended', () => {
+            nextSong();
+        });
+
+        // Set initial volume
+        audio.volume = 0.7;
+
+        window.onload = () => {
+            generateMusicList();
+        };
+    </script>
+</body>
+</html>
