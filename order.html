@@ -811,4 +811,48 @@
             if (hour >= 6 && hour < 18) {
                 // Day theme - more vibrant
                 root.style.setProperty('--primary-electric', '#00ffff');
-                root.style.setProperty('--secondary-
+                root.style.setProperty('--secondary-neon', '#ff00ff');
+                root.style.setProperty('--accent-gold', '#ffd700');
+            } else {
+                // Night theme - more subtle
+                root.style.setProperty('--primary-electric', '#00ccdd');
+                root.style.setProperty('--secondary-neon', '#dd00dd');
+                root.style.setProperty('--accent-gold', '#ddaa00');
+            }
+        }
+
+        // Apply theme on load
+        updateThemeByTime();
+
+        // Update theme every hour
+        setInterval(updateThemeByTime, 3600000);
+
+        // Smooth scrolling for better UX
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        // Add touch feedback for mobile
+        if ('ontouchstart' in window) {
+            document.querySelector('.select').addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            document.querySelector('.select').addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        }
+
+        // Accessibility improvements
+        document.querySelector('.select').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+
+        // Error handling for navigation
+        window.addEventListener('error', function(e) {
+            console.log('Navigation error handled gracefully');
+        });
+    </script>
+</body>
+</html>
