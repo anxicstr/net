@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Order - Tech Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Premium Electrical Solutions - Tech Innovation Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,452 +13,546 @@
         }
 
         :root {
-            --primary-electric: #00d4ff;
-            --secondary-orange: #ff6b35;
+            --primary-electric: #00ffff;
+            --secondary-neon: #ff00ff;
+            --accent-gold: #ffd700;
             --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.85);
-            --glass-bg: rgba(0, 0, 0, 0.7);
-            --glass-border: rgba(0, 212, 255, 0.3);
-            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.4);
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --glass-bg: rgba(10, 10, 20, 0.8);
+            --glass-border: rgba(0, 255, 255, 0.4);
+            --shadow-neon: 0 0 40px rgba(0, 255, 255, 0.3);
+            --gradient-electric: linear-gradient(135deg, #00ffff 0%, #ff00ff 50%, #ffd700 100%);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: url('bganxic.jpg') no-repeat center center fixed;
-            background-size: cover;
+            background: #0a0a14;
             color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Dark overlay for better readability */
-        body::before {
-            content: '';
+        /* Animated background with multiple layers */
+        .bg-layer {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                135deg, 
-                rgba(0, 0, 0, 0.6) 0%, 
-                rgba(0, 0, 0, 0.4) 50%, 
-                rgba(0, 0, 0, 0.6) 100%
-            );
+            pointer-events: none;
             z-index: 1;
         }
 
-        /* Electric grid overlay */
-        body::after {
-            content: '';
+        .bg-layer-1 {
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+            animation: bgFloat1 15s ease-in-out infinite;
+        }
+
+        .bg-layer-2 {
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(0, 255, 255, 0.05) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(255, 0, 255, 0.05) 50%, transparent 70%);
+            background-size: 200px 200px, 250px 250px;
+            animation: bgMove 20s linear infinite;
+        }
+
+        @keyframes bgFloat1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-20px, -20px) scale(1.1); }
+            66% { transform: translate(20px, -10px) scale(0.9); }
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 200px 200px, -250px 250px; }
+        }
+
+        /* Neural network grid */
+        .neural-grid {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
+                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 4s ease-in-out infinite;
             z-index: 2;
-            pointer-events: none;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.02); }
         }
 
-        /* Electric particles */
-        .electric-particles {
+        /* Floating orbs */
+        .floating-orbs {
             position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
             pointer-events: none;
             z-index: 3;
-            overflow: hidden;
         }
 
-        .particle {
+        .orb {
             position: absolute;
-            background: radial-gradient(circle, var(--primary-electric), transparent);
             border-radius: 50%;
-            opacity: 0;
-            animation: electricFloat 8s ease-in-out infinite;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), var(--primary-electric));
+            box-shadow: 0 0 30px var(--primary-electric);
+            animation: orbFloat 12s ease-in-out infinite;
         }
 
-        @keyframes electricFloat {
-            0% {
-                transform: translateY(100vh) scale(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(50vh) scale(1) rotate(180deg);
-                opacity: 0.8;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-10vh) scale(0) rotate(360deg);
-                opacity: 0;
-            }
+        .orb:nth-child(1) { 
+            width: 120px; height: 120px; 
+            top: 10%; left: 15%; 
+            animation-delay: 0s;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), var(--primary-electric));
+        }
+        .orb:nth-child(2) { 
+            width: 80px; height: 80px; 
+            top: 70%; right: 20%; 
+            animation-delay: -4s;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), var(--secondary-neon));
+        }
+        .orb:nth-child(3) { 
+            width: 100px; height: 100px; 
+            bottom: 15%; left: 70%; 
+            animation-delay: -8s;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), var(--accent-gold));
         }
 
-        /* Main Container */
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+            25% { transform: translate(-30px, -30px) scale(1.1); opacity: 0.9; }
+            50% { transform: translate(30px, -20px) scale(0.9); opacity: 0.6; }
+            75% { transform: translate(-10px, 20px) scale(1.05); opacity: 0.8; }
+        }
+
+        /* Main container */
         .container {
             position: relative;
             z-index: 10;
-            max-width: 600px;
+            max-width: 700px;
             width: 90%;
-            margin: 20px auto;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
         }
 
-        /* Premium Card */
+        /* Premium card with advanced glassmorphism */
         .order-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             border: 2px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: var(--shadow-soft);
+            border-radius: 32px;
+            padding: 50px;
+            box-shadow: 
+                var(--shadow-neon),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 20px 60px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
-            animation: cardGlow 4s ease-in-out infinite alternate;
+            animation: cardEntrance 1s ease-out, cardGlow 6s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 
+                0 0 60px rgba(0, 255, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 30px 80px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         @keyframes cardGlow {
             0% {
                 box-shadow: 
-                    0 10px 40px rgba(0, 0, 0, 0.4),
-                    0 0 20px rgba(0, 212, 255, 0.2);
+                    0 0 40px rgba(0, 255, 255, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                    0 20px 60px rgba(0, 0, 0, 0.4);
             }
             100% {
                 box-shadow: 
-                    0 15px 50px rgba(0, 0, 0, 0.5),
-                    0 0 40px rgba(0, 212, 255, 0.4);
+                    0 0 60px rgba(255, 0, 255, 0.4),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                    0 25px 70px rgba(0, 0, 0, 0.5);
             }
         }
 
+        /* Electric border animation */
         .order-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--primary-electric), transparent);
-            opacity: 0.8;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-electric) 0%, var(--secondary-orange) 50%, #fff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            animation: titlePulse 3s ease-in-out infinite;
-        }
-
-        @keyframes titlePulse {
-            0%, 100% {
-                filter: brightness(1);
-                transform: scale(1);
-            }
-            50% {
-                filter: brightness(1.2);
-                transform: scale(1.02);
-            }
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-        }
-
-        /* Form Group */
-        .form-group {
-            margin-bottom: 32px;
-            position: relative;
-        }
-
-        .label {
-            display: block;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-        }
-
-        /* Select Dropdown */
-        .select-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .select {
-            width: 100%;
-            padding: 18px 24px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.4);
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            box-shadow: 
-                0 4px 20px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .select:focus {
-            outline: none;
-            border-color: var(--primary-electric);
-            background: rgba(0, 0, 0, 0.8);
-            box-shadow: 
-                0 0 0 3px rgba(0, 212, 255, 0.3),
-                0 8px 30px rgba(0, 212, 255, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .select:hover {
-            border-color: rgba(0, 212, 255, 0.6);
-            background: rgba(0, 0, 0, 0.7);
-            transform: translateY(-1px);
-            box-shadow: 
-                0 6px 25px rgba(0, 212, 255, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
-        }
-
-        /* Custom arrow */
-        .select-wrapper::after {
-            content: '⚡';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            color: var(--primary-electric);
-            pointer-events: none;
-            transition: all 0.3s ease;
-            animation: arrowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes arrowPulse {
-            0%, 100% { 
-                opacity: 0.8;
-                transform: translateY(-50%) scale(1);
-            }
-            50% { 
-                opacity: 1;
-                transform: translateY(-50%) scale(1.2);
-                text-shadow: 0 0 15px var(--primary-electric);
-            }
-        }
-
-        .select:focus + .select-wrapper::after,
-        .select-wrapper:hover::after {
-            transform: translateY(-50%) scale(1.4) rotate(15deg);
-            color: var(--secondary-orange);
-            text-shadow: 0 0 20px var(--secondary-orange);
-        }
-
-        /* Option styling */
-        .select option {
-            background: #1a1a1a;
-            color: var(--text-primary);
-            padding: 12px;
-            font-weight: 500;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                margin: 10px auto;
-            }
-
-            .order-card {
-                padding: 30px 25px;
-                border-radius: 20px;
-            }
-            
-            .title {
-                font-size: 2rem;
-                margin-bottom: 10px;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 15px;
-            }
-            
-            .select {
-                padding: 16px 20px;
-                font-size: 1rem;
-            }
-
-            .form-group {
-                margin-bottom: 25px;
-            }
-
-            .label {
-                font-size: 0.9rem;
-                margin-bottom: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                width: 98%;
-                margin: 5px auto;
-            }
-            
-            .order-card {
-                padding: 25px 20px;
-                border-radius: 16px;
-            }
-            
-            .title {
-                font-size: 1.7rem;
-            }
-
-            .subtitle {
-                font-size: 0.9rem;
-            }
-
-            .select {
-                padding: 14px 18px;
-                font-size: 0.95rem;
-            }
-
-            .select-wrapper::after {
-                right: 16px;
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .order-card {
-                padding: 20px 15px;
-            }
-
-            .title {
-                font-size: 1.5rem;
-            }
-
-            .subtitle {
-                font-size: 0.85rem;
-            }
-
-            .select {
-                padding: 12px 16px;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Loading animation for better UX */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .order-card {
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        /* Enhanced electric border effect */
-        .select-wrapper::before {
             content: '';
             position: absolute;
             top: -2px;
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, 
-                var(--primary-electric), 
-                var(--secondary-orange), 
-                var(--primary-electric),
-                var(--secondary-orange));
-            background-size: 300% 300%;
-            border-radius: 18px;
-            opacity: 0;
+            background: var(--gradient-electric);
+            border-radius: 34px;
             z-index: -1;
             animation: electricBorder 3s linear infinite;
-            transition: opacity 0.3s ease;
-        }
-
-        .select:focus + .select-wrapper::before,
-        .select:hover + .select-wrapper::before {
-            opacity: 0.4;
+            opacity: 0.6;
         }
 
         @keyframes electricBorder {
-            0% { background-position: 0% 50%; }
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        /* Header with 3D text effect */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            perspective: 1000px;
+        }
+
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-electric);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease-in-out infinite, titleFloat 3s ease-in-out infinite;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: rgba(0, 255, 255, 0.3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transform: translateZ(-10px) translateY(3px) translateX(3px);
+            filter: blur(2px);
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
-        /* Better focus indicators for accessibility */
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-5px) rotateX(5deg); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            animation: subtitleGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleGlow {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(0, 255, 255, 0.6); }
+        }
+
+        /* Enhanced form styling */
+        .form-group {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .label {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            animation: labelPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes labelPulse {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; text-shadow: 0 0 25px rgba(255, 0, 255, 0.7); }
+        }
+
+        /* Revolutionary select dropdown */
+        .select-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            perspective: 1000px;
+        }
+
+        .select {
+            width: 100%;
+            padding: 24px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: rgba(5, 5, 15, 0.8);
+            border: 3px solid rgba(0, 255, 255, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 2px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            z-index: 5;
+        }
+
         .select:focus {
-            outline: 2px solid var(--primary-electric);
-            outline-offset: 2px;
+            outline: none;
+            border-color: var(--accent-gold);
+            background: rgba(5, 5, 15, 0.95);
+            box-shadow: 
+                0 0 0 4px rgba(255, 215, 0, 0.3),
+                0 16px 48px rgba(255, 215, 0, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.02);
         }
 
-        /* Smooth transitions for all interactive elements */
-        * {
-            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        .select:hover {
+            border-color: rgba(255, 0, 255, 0.7);
+            background: rgba(5, 5, 15, 0.9);
+            transform: translateY(-3px) rotateX(2deg);
+            box-shadow: 
+                0 12px 40px rgba(255, 0, 255, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.15);
         }
 
-        /* High contrast mode support */
-        @media (prefers-contrast: high) {
-            :root {
-                --glass-bg: rgba(0, 0, 0, 0.9);
-                --glass-border: rgba(255, 255, 255, 0.8);
+        /* Futuristic custom arrow */
+        .select-wrapper::after {
+            content: '⚡';
+            position: absolute;
+            right: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: var(--primary-electric);
+            pointer-events: none;
+            transition: all 0.4s ease;
+            animation: arrowEnergy 2s ease-in-out infinite;
+            z-index: 6;
+        }
+
+        @keyframes arrowEnergy {
+            0%, 100% { 
+                opacity: 0.8;
+                transform: translateY(-50%) scale(1);
+                text-shadow: 0 0 15px var(--primary-electric);
+            }
+            50% { 
+                opacity: 1;
+                transform: translateY(-50%) scale(1.3);
+                text-shadow: 0 0 30px var(--accent-gold);
+                color: var(--accent-gold);
+            }
+        }
+
+        .select:focus + .select-wrapper::after,
+        .select:hover + .select-wrapper::after {
+            transform: translateY(-50%) scale(1.5) rotate(180deg);
+            color: var(--secondary-neon);
+            text-shadow: 0 0 40px var(--secondary-neon);
+            animation-duration: 0.5s;
+        }
+
+        /* Enhanced options */
+        .select option {
+            background: #1a1a2e;
+            color: var(--text-primary);
+            padding: 16px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .select option:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        /* Holographic effect overlay */
+        .holographic-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+            );
+            border-radius: 32px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            animation: holographicShift 3s ease-in-out infinite;
+        }
+
+        .order-card:hover .holographic-overlay {
+            opacity: 1;
+        }
+
+        @keyframes holographicShift {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 1024px) {
+            .orb { display: none; }
+            .container { max-width: 600px; }
+            .title { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 20px 0;
+            }
+
+            .order-card {
+                padding: 40px 30px;
+                border-radius: 28px;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+                margin-bottom: 12px;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 20px;
             }
             
             .select {
-                border-width: 3px;
+                padding: 20px 25px;
+                font-size: 1.1rem;
+            }
+
+            .form-group {
+                margin-bottom: 30px;
+            }
+
+            .label {
+                font-size: 1rem;
+                margin-bottom: 16px;
+            }
+
+            .floating-orbs { display: none; }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 98%;
+                padding: 15px 0;
+            }
+            
+            .order-card {
+                padding: 30px 20px;
+                border-radius: 24px;
+            }
+            
+            .title {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .select {
+                padding: 18px 20px;
+                font-size: 1rem;
+            }
+
+            .select-wrapper::after {
+                right: 20px;
+                font-size: 20px;
+            }
+
+            .label {
+                font-size: 0.9rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .order-card {
+                padding: 25px 18px;
+                border-radius: 20px;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .select {
+                padding: 16px 18px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Dark theme optimizations */
+        @media (prefers-color-scheme: dark) {
+            .select {
+                background: rgba(0, 0, 0, 0.9);
+            }
+        }
+
+        /* High contrast mode */
+        @media (prefers-contrast: high) {
+            :root {
+                --glass-bg: rgba(0, 0, 0, 0.95);
+                --glass-border: rgba(255, 255, 255, 0.9);
+            }
+            
+            .select {
+                border-width: 4px;
             }
         }
 
@@ -472,107 +566,249 @@
                 transition-duration: 0.01ms !important;
             }
         }
+
+        /* Loading state */
+        .loading {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .loaded {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Success feedback */
+        .success-feedback {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #00ff00;
+            opacity: 0;
+            animation: successPulse 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes successPulse {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Electric particles -->
-    <div class="electric-particles">
-        <div class="particle" style="top: 20%; left: 15%; width: 6px; height: 6px; animation-duration: 6s; animation-delay: 0s;"></div>
-        <div class="particle" style="top: 50%; left: 85%; width: 8px; height: 8px; animation-duration: 8s; animation-delay: 1s;"></div>
-        <div class="particle" style="top: 30%; left: 70%; width: 4px; height: 4px; animation-duration: 7s; animation-delay: 2s;"></div>
-        <div class="particle" style="top: 80%; left: 20%; width: 7px; height: 7px; animation-duration: 9s; animation-delay: 0.5s;"></div>
-        <div class="particle" style="top: 60%; left: 40%; width: 5px; height: 5px; animation-duration: 6.5s; animation-delay: 1.5s;"></div>
-        <div class="particle" style="top: 10%; left: 90%; width: 6px; height: 6px; animation-duration: 7.5s; animation-delay: 2.5s;"></div>
+    <!-- Multi-layered animated background -->
+    <div class="bg-layer bg-layer-1"></div>
+    <div class="bg-layer bg-layer-2"></div>
+    
+    <!-- Neural network grid -->
+    <div class="neural-grid"></div>
+    
+    <!-- Floating orbs -->
+    <div class="floating-orbs">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
     </div>
 
     <div class="container">
-        <div class="order-card">
+        <div class="order-card loading">
+            <div class="holographic-overlay"></div>
+            
             <div class="header">
-                <h1 class="title">⚡ Electrical Solutions</h1>
-                <p class="subtitle">Inovasi teknologi electrical engineering terdepan</p>
+                <h1 class="title" data-text="⚡ ELECTRICAL SOLUTIONS">⚡ ELECTRICAL SOLUTIONS</h1>
+                <p class="subtitle">Revolusi Teknologi Engineering Masa Depan</p>
             </div>
 
             <form action="" method="get">
                 <div class="form-group">
-                    <label for="opsi" class="label">⚡ Engineering Products</label>
+                    <label for="opsi" class="label">⚡ Next-Gen Engineering Products</label>
                     <div class="select-wrapper">
-                        <select id="opsi" name="opsi" class="select" onchange="window.location.href=this.value;">
-                            <option value="">⚡ Pilih solusi engineering Anda...</option>
-                            <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20web%20Anda">🌐 Smart Web Systems ⚡</option>
-                            <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20Arduino%20Anda">🔧 Arduino Programming ⚡</option>
-                            <option value="https://wa.me/6285167455874?text=Halo,%20saya%20tertarik%20dengan%20code%20projek%20IOT%20Anda">📡 IoT & Embedded Systems ⚡</option>
-                            <option value="arduino.html">⚡ Advanced Arduino Projects ⚡</option>
-                            <option value="comingsoon.html">🚀 Next-Gen Solutions ⚡</option>
+                        <select id="opsi" name="opsi" class="select" onchange="handleSelection(this.value);">
+                            <option value="">⚡ Pilih Inovasi Engineering Terdepan...</option>
+                            <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20web%20Anda">🌐 Smart Web Systems & AI Integration ⚡</option>
+                            <option value="https://wa.me/6283161666194?text=Halo,%20saya%20tertarik%20dengan%20code%20Arduino%20Anda">🔧 Advanced Arduino Programming ⚡</option>
+                            <option value="https://wa.me/6285167455874?text=Halo,%20saya%20tertarik%20dengan%20code%20projek%20IOT%20Anda">📡 IoT & Embedded Systems Revolution ⚡</option>
+                            <option value="arduino.html">⚡ Next-Level Arduino Projects ⚡</option>
+                            <option value="comingsoon.html">🚀 Quantum Computing Solutions ⚡</option>
                         </select>
                     </div>
                 </div>
             </form>
+            
+            <div class="success-feedback" id="successFeedback">✓</div>
         </div>
     </div>
 
     <script>
-        // Dynamic particle generation
-        function createParticle() {
+        // Enhanced loading animation
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.querySelector('.order-card').classList.add('loaded');
+                document.querySelector('.order-card').classList.remove('loading');
+            }, 300);
+        });
+
+        // Advanced particle system
+        function createAdvancedParticle() {
             const particle = document.createElement('div');
             particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = '100%';
-            particle.style.width = (Math.random() * 6 + 4) + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.animationDuration = (Math.random() * 3 + 5) + 's';
-            particle.style.animationDelay = Math.random() * 2 + 's';
             
-            document.querySelector('.electric-particles').appendChild(particle);
+            const colors = ['#00ffff', '#ff00ff', '#ffd700'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            const size = Math.random() * 8 + 4;
+            
+            particle.style.position = 'fixed';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = '110%';
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.background = `radial-gradient(circle, ${randomColor}, transparent)`;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '4';
+            particle.style.boxShadow = `0 0 20px ${randomColor}`;
+            
+            const duration = Math.random() * 4 + 6;
+            particle.style.animation = `particleFloat ${duration}s linear forwards`;
+            
+            document.body.appendChild(particle);
             
             setTimeout(() => {
-                particle.remove();
-            }, 10000);
+                if (particle.parentNode) {
+                    particle.remove();
+                }
+            }, duration * 1000);
         }
 
-        // Generate particles periodically
-        setInterval(createParticle, 1200);
+        // Dynamic particle generation
+        setInterval(createAdvancedParticle, 800);
 
-        // Electric hover effects
-        document.querySelectorAll('.select').forEach(select => {
-            select.addEventListener('mouseenter', function() {
-                this.style.borderColor = 'rgba(0, 212, 255, 0.8)';
-                this.style.boxShadow = '0 0 20px rgba(0, 212, 255, 0.3)';
+        // Add particle float animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFloat {
+                0% {
+                    transform: translateY(0) scale(0) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                    transform: translateY(-20vh) scale(1) rotate(90deg);
+                }
+                90% {
+                    opacity: 0.8;
+                    transform: translateY(-80vh) scale(1.2) rotate(270deg);
+                }
+                100% {
+                    transform: translateY(-110vh) scale(0) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced selection handler with feedback
+        function handleSelection(value) {
+            if (value) {
+                const selectElement = document.querySelector('.select');
+                const feedback = document.getElementById('successFeedback');
+                
+                // Visual feedback
+                selectElement.style.background = 'rgba(0, 255, 0, 0.1)';
+                selectElement.style.borderColor = '#00ff00';
+                selectElement.style.transform = 'scale(1.05)';
+                
+                // Show success feedback
+                feedback.style.animation = 'successPulse 0.6s ease-out';
+                
+                // Navigate after animation
+                setTimeout(() => {
+                    window.location.href = value;
+                }, 800);
+                
+                // Reset styles
+                setTimeout(() => {
+                    selectElement.style.background = 'rgba(5, 5, 15, 0.8)';
+                    selectElement.style.borderColor = 'rgba(0, 255, 255, 0.5)';
+                    selectElement.style.transform = 'scale(1)';
+                }, 1000);
+            }
+        }
+
+        // Advanced hover effects for desktop
+        if (window.innerWidth > 768) {
+            document.querySelector('.order-card').addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const deltaX = (x - centerX) / centerX;
+                const deltaY = (y - centerY) / centerY;
+                
+                this.style.transform = `
+                    translateY(-10px) 
+                    rotateX(${deltaY * 5}deg) 
+                    rotateY(${deltaX * 5}deg)
+                `;
             });
             
-            select.addEventListener('mouseleave', function() {
-                if (this !== document.activeElement) {
-                    this.style.borderColor = 'rgba(0, 212, 255, 0.4)';
-                    this.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
-                }
+            document.querySelector('.order-card').addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0deg) rotateY(0deg)';
             });
-        });
-
-        // Smooth loading animation
-        window.addEventListener('load', function() {
-            document.querySelector('.order-card').style.opacity = '1';
-            document.querySelector('.order-card').style.transform = 'translateY(0)';
-        });
+        }
 
         // Enhanced keyboard navigation
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Tab') {
                 const focusedElement = document.activeElement;
                 if (focusedElement.classList.contains('select')) {
-                    focusedElement.style.boxShadow = '0 0 0 3px rgba(0, 212, 255, 0.5)';
+                    focusedElement.style.boxShadow = '0 0 0 4px rgba(255, 215, 0, 0.5)';
+                    focusedElement.style.borderColor = '#ffd700';
                 }
+            }
+            
+            if (e.key === 'Enter' && document.activeElement.classList.contains('select')) {
+                document.activeElement.click();
             }
         });
 
-        // Accessibility improvements
-        document.querySelector('.select').addEventListener('change', function() {
-            if (this.value) {
-                // Add visual feedback when selection is made
-                this.style.background = 'rgba(0, 212, 255, 0.1)';
-                setTimeout(() => {
-                    this.style.background = 'rgba(0, 0, 0, 0.6)';
-                }, 500);
-            }
-        });
-    </script>
-</body>
-</html>
+        // Performance optimization for mobile
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.orb').forEach(orb => {
+                orb.style.display = 'none';
+            });
+        }
+
+        // Dynamic color theme based on time
+        function updateThemeByTime() {
+            const hour = new Date().getHours();
+            const root = document.documentElement;
+            
+            if (hour >= 6 && hour < 18) {
+                // Day theme - more vibrant
+                root.style.setProperty('--primary-electric', '#00ffff');
+                root.style.setProperty('--secondary-
