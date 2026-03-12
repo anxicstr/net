@@ -1,119 +1,239 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Moment 2024 - 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Beautiful Moments</title>
 
 <style>
 
-body{
-    margin:0;
-    overflow:hidden;
-    font-family:Arial;
-
-    background:url("pantai.jpg") no-repeat center center/cover;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
 }
 
-/* tombol utama */
+/* VIDEO BACKGROUND */
 
-.btn{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    padding:15px 35px;
-    font-size:20px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,0.8);
-    cursor:pointer;
+.video-bg{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
 }
 
-/* menu */
+/* OVERLAY GELAP */
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.35);
+z-index:-1;
+}
+
+/* CONTAINER */
+
+.container{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+padding:20px;
+}
+
+/* TITLE */
+
+.title{
+font-size:48px;
+margin-bottom:40px;
+text-shadow:0 0 20px black;
+}
+
+/* MENU */
 
 .menu{
-    position:absolute;
-    top:60%;
-    left:50%;
-    transform:translateX(-50%);
-    display:none;
+display:grid;
+grid-template-columns:repeat(3,220px);
+gap:25px;
 }
 
-.menu button{
-    display:block;
-    margin:10px;
-    padding:10px 25px;
-    border:none;
-    border-radius:8px;
-    font-size:18px;
-    cursor:pointer;
+/* CARD */
+
+.card{
+backdrop-filter:blur(12px);
+background:rgba(255,255,255,0.2);
+border:1px solid rgba(255,255,255,0.4);
+padding:30px;
+border-radius:16px;
+text-decoration:none;
+color:white;
+font-size:20px;
+font-weight:bold;
+transition:0.35s;
+opacity:0;
+transform:translateY(40px);
 }
 
-/* burung kecil */
-
-.bird{
-    position:absolute;
-    font-size:14px; /* kecil */
-    opacity:0.8;
-    animation:fly linear forwards;
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+background:rgba(255,255,255,0.35);
 }
 
-@keyframes fly{
-    from{
-        transform:translateX(-50px);
-    }
-    to{
-        transform:translateX(110vw);
-    }
+/* MUSIC BUTTON */
+
+.music-btn{
+position:fixed;
+bottom:25px;
+right:25px;
+background:rgba(255,255,255,0.3);
+border:none;
+color:white;
+font-size:22px;
+padding:14px 18px;
+border-radius:50%;
+cursor:pointer;
+backdrop-filter:blur(10px);
+}
+
+/* OPENING SCREEN */
+
+.start-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:white;
+z-index:10;
+}
+
+.start-btn{
+padding:15px 40px;
+font-size:20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.title{
+font-size:30px;
+}
+
+.menu{
+grid-template-columns:1fr;
+width:85%;
+}
+
+.card{
+font-size:18px;
+padding:24px;
+}
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<button class="btn" onclick="showMenu()">Klik Moment</button>
+<!-- OPENING SCREEN -->
 
-<div class="menu" id="menu">
-<button>Moment 2024</button>
-<button>Moment 2025</button>
-<button>Moment 2026</button>
+<div class="start-screen" id="start">
+<h1 style="margin-bottom:20px;">Welcome</h1>
+<button class="start-btn" onclick="startSite()">Enter Website</button>
 </div>
+
+<!-- VIDEO BACKGROUND -->
+
+<video class="video-bg" autoplay muted loop>
+<source src="pantai.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- MUSIC -->
+
+<audio id="music" loop>
+<source src="bg.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CONTENT -->
+
+<div class="container">
+
+<h1 class="title">My Beautiful Moments</h1>
+
+<div class="menu">
+<a href="moment2024.html" class="card">📸 Moment 2024</a>
+<a href="moment2025.html" class="card">🌅 Moment 2025</a>
+<a href="moment2026.html" class="card">✨ Moment 2026</a>
+</div>
+
+</div>
+
+<!-- MUSIC BUTTON -->
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
 
 <script>
 
-/* tampilkan menu */
+let music=document.getElementById("music");
 
-function showMenu(){
-document.getElementById("menu").style.display="block";
-}
+function startSite(){
 
-/* membuat banyak burung kecil */
+document.getElementById("start").style.display="none";
 
-function createBird(){
+music.play();
 
-let bird=document.createElement("div");
-bird.className="bird";
+let cards=document.querySelectorAll(".card");
 
-/* simbol burung kecil */
-bird.innerHTML="🕊";
-
-/* posisi acak di langit */
-bird.style.top=Math.random()*60+"vh";
-
-/* durasi terbang */
-bird.style.animationDuration=(10+Math.random()*10)+"s";
-
-document.body.appendChild(bird);
+cards.forEach((card,index)=>{
 
 setTimeout(()=>{
-bird.remove();
-},20000);
+
+card.style.opacity="1";
+card.style.transform="translateY(0)";
+
+},300*index);
+
+});
 
 }
 
-/* burung muncul terus */
-setInterval(createBird,1000);
+function toggleMusic(){
+
+if(music.paused){
+
+music.play();
+
+}else{
+
+music.pause();
+
+}
+
+}
 
 </script>
 
