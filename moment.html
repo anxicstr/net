@@ -7,40 +7,27 @@
 <title>My Beautiful Moments</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 /* VIDEO BACKGROUND */
-
 .video-bg{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+top:0;left:0;
+width:100%;height:100%;
 object-fit:cover;
 z-index:-2;
 }
 
 /* OVERLAY GELAP */
-
 .overlay{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+top:0;left:0;
+width:100%;height:100%;
 background:rgba(0,0,0,0.35);
 z-index:-1;
 }
 
 /* CONTAINER */
-
 .container{
 height:100vh;
 display:flex;
@@ -53,15 +40,13 @@ padding:20px;
 }
 
 /* TITLE */
-
 .title{
 font-size:48px;
 margin-bottom:40px;
 text-shadow:0 0 20px black;
 }
 
-/* MENU */
-
+/* MENU GRID */
 .menu{
 display:grid;
 grid-template-columns:repeat(3,220px);
@@ -69,7 +54,6 @@ gap:25px;
 }
 
 /* CARD */
-
 .card{
 backdrop-filter:blur(12px);
 background:rgba(255,255,255,0.2);
@@ -84,73 +68,37 @@ transition:0.35s;
 opacity:0;
 transform:translateY(40px);
 }
-
 .card:hover{
 transform:translateY(-10px) scale(1.05);
 background:rgba(255,255,255,0.35);
 }
 
 /* MUSIC BUTTON */
-
 .music-btn{
-position:fixed;
-bottom:25px;
-right:25px;
+position:fixed;bottom:25px;right:25px;
 background:rgba(255,255,255,0.3);
-border:none;
-color:white;
-font-size:22px;
-padding:14px 18px;
-border-radius:50%;
-cursor:pointer;
+border:none;color:white;
+font-size:22px;padding:14px 18px;
+border-radius:50%;cursor:pointer;
 backdrop-filter:blur(10px);
 }
 
 /* OPENING SCREEN */
-
 .start-screen{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-color:white;
-z-index:10;
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:black;display:flex;justify-content:center;align-items:center;
+flex-direction:column;color:white;z-index:10;
 }
-
 .start-btn{
-padding:15px 40px;
-font-size:20px;
-border:none;
-border-radius:10px;
-cursor:pointer;
+padding:15px 40px;font-size:20px;border:none;border-radius:10px;cursor:pointer;
 }
 
 /* MOBILE */
-
 @media(max-width:768px){
-
-.title{
-font-size:30px;
+.title{font-size:30px;}
+.menu{grid-template-columns:1fr;width:85%;}
+.card{font-size:18px;padding:24px;}
 }
-
-.menu{
-grid-template-columns:1fr;
-width:85%;
-}
-
-.card{
-font-size:18px;
-padding:24px;
-}
-
-}
-
 </style>
 
 </head>
@@ -181,15 +129,12 @@ padding:24px;
 <!-- CONTENT -->
 
 <div class="container">
-
 <h1 class="title">My Beautiful Moments</h1>
-
 <div class="menu">
 <a href="moment2024.html" class="card">📸 Moment 2024</a>
 <a href="moment2025.html" class="card">🌅 Moment 2025</a>
 <a href="moment2026.html" class="card">✨ Moment 2026</a>
 </div>
-
 </div>
 
 <!-- MUSIC BUTTON -->
@@ -197,44 +142,27 @@ padding:24px;
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
 <script>
-
 let music=document.getElementById("music");
 
+/* START WEBSITE */
 function startSite(){
-
 document.getElementById("start").style.display="none";
-
 music.play();
 
+/* animasi menu muncul satu-satu */
 let cards=document.querySelectorAll(".card");
-
 cards.forEach((card,index)=>{
-
 setTimeout(()=>{
-
 card.style.opacity="1";
 card.style.transform="translateY(0)";
-
 },300*index);
-
 });
-
 }
 
+/* TOGGLE MUSIC */
 function toggleMusic(){
-
-if(music.paused){
-
-music.play();
-
-}else{
-
-music.pause();
-
+if(music.paused){music.play();}else{music.pause();}
 }
-
-}
-
 </script>
 
 </body>
