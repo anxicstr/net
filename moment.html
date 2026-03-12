@@ -11,8 +11,7 @@
 
 /* VIDEO BACKGROUND */
 .video-bg{
-position:fixed;
-top:0;left:0;
+position:fixed;top:0;left:0;
 width:100%;height:100%;
 object-fit:cover;
 z-index:-2;
@@ -20,8 +19,7 @@ z-index:-2;
 
 /* OVERLAY GELAP */
 .overlay{
-position:fixed;
-top:0;left:0;
+position:fixed;top:0;left:0;
 width:100%;height:100%;
 background:rgba(0,0,0,0.35);
 z-index:-1;
@@ -83,16 +81,6 @@ border-radius:50%;cursor:pointer;
 backdrop-filter:blur(10px);
 }
 
-/* OPENING SCREEN */
-.start-screen{
-position:fixed;top:0;left:0;width:100%;height:100%;
-background:black;display:flex;justify-content:center;align-items:center;
-flex-direction:column;color:white;z-index:10;
-}
-.start-btn{
-padding:15px 40px;font-size:20px;border:none;border-radius:10px;cursor:pointer;
-}
-
 /* MOBILE */
 @media(max-width:768px){
 .title{font-size:30px;}
@@ -105,13 +93,6 @@ padding:15px 40px;font-size:20px;border:none;border-radius:10px;cursor:pointer;
 
 <body>
 
-<!-- OPENING SCREEN -->
-
-<div class="start-screen" id="start">
-<h1 style="margin-bottom:20px;">Welcome</h1>
-<button class="start-btn" onclick="startSite()">Enter Website</button>
-</div>
-
 <!-- VIDEO BACKGROUND -->
 
 <video class="video-bg" autoplay muted loop playsinline>
@@ -122,7 +103,7 @@ padding:15px 40px;font-size:20px;border:none;border-radius:10px;cursor:pointer;
 
 <!-- MUSIC -->
 
-<audio id="music" loop>
+<audio id="music" autoplay loop>
 <source src="bg.mp3" type="audio/mpeg">
 </audio>
 
@@ -144,12 +125,8 @@ padding:15px 40px;font-size:20px;border:none;border-radius:10px;cursor:pointer;
 <script>
 let music=document.getElementById("music");
 
-/* START WEBSITE */
-function startSite(){
-document.getElementById("start").style.display="none";
-music.play();
-
 /* animasi menu muncul satu-satu */
+window.addEventListener('load',()=>{
 let cards=document.querySelectorAll(".card");
 cards.forEach((card,index)=>{
 setTimeout(()=>{
@@ -157,7 +134,7 @@ card.style.opacity="1";
 card.style.transform="translateY(0)";
 },300*index);
 });
-}
+});
 
 /* TOGGLE MUSIC */
 function toggleMusic(){
