@@ -2,7 +2,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yuda Gampang </title>
+<title>eposyuda</title>
+<meta name="description" content="JJ My Kisah - kumpulan momen 2024, 2025, 2026 dengan video background dan musik latar.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
@@ -88,6 +89,19 @@
   backdrop-filter:blur(10px);
 }
 
+/* START BUTTON */
+#startMusic{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(255,255,255,0.3);
+  border:none;color:white;
+  font-size:22px;padding:18px 24px;
+  border-radius:12px;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+}
+
 /* MOBILE */
 @media(max-width:768px){
   .title{font-size:30px;}
@@ -96,7 +110,6 @@
 }
 </style>
 </head>
-
 <body>
 
 <!-- VIDEO BACKGROUND -->
@@ -111,6 +124,9 @@
   <source src="bg.mp3" type="audio/mpeg">
 </audio>
 
+<!-- START BUTTON -->
+<button id="startMusic">🎵 Mulai Musik</button>
+
 <!-- CONTENT -->
 <div class="container">
   <h1 class="title">JJ My Kisah</h1>
@@ -121,37 +137,36 @@
   </div>
 </div>
 
-<!-- MUSIC BUTTON -->
+<!-- MUSIC TOGGLE BUTTON -->
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
 <script>
 let music = document.getElementById("music");
+let startBtn = document.getElementById("startMusic");
+let toggleBtn = document.querySelector('.music-btn');
 
-/* Animasi kartu sudah di CSS dengan delay var(--delay) */
-
-/* AUTO-PLAY MUSIK - Berusaha autoplay di desktop */
-window.addEventListener('load', ()=>{
-  const playPromise = music.play();
-  if(playPromise !== undefined){
-    playPromise.catch(_ => {
-      // Autoplay gagal, tunggu klik pengguna
-      console.log("Autoplay diblokir, klik tombol musik untuk memulai");
-    });
-  }
+// Start music setelah klik
+startBtn.addEventListener('click', () => {
+  music.play().then(() => {
+    startBtn.style.display = 'none'; // sembunyikan tombol awal
+    toggleBtn.style.display = 'block'; // tampilkan tombol toggle
+  }).catch(e => console.log("Autoplay diblokir:", e));
 });
 
-/* TOGGLE MUSIC */
+// Toggle musik
 function toggleMusic(){
   if(music.paused){
     music.play();
-    document.querySelector('.music-btn').textContent = '🎵';
+    toggleBtn.textContent = '🎵';
   }else{
     music.pause();
-    document.querySelector('.music-btn').textContent = '🔇';
+    toggleBtn.textContent = '🔇';
   }
 }
+
+// Hide toggle button sampai user klik start
+toggleBtn.style.display = 'none';
 </script>
 
 </body>
 </html>
-
