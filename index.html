@@ -35,11 +35,23 @@
   padding:20px;
 }
 
-/* TITLE */
+/* TITLE + LOGO */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; /* jarak logo dan title */
+  margin-bottom: 40px;
+}
+
+.logo {
+  width: 60px;  /* sesuaikan ukuran logo */
+  height: auto;
+}
+
 .title{
   font-size:48px;
   text-shadow:0 0 20px black;
-  margin-bottom:40px;
 }
 
 /* MENU GRID */
@@ -94,6 +106,7 @@
   .title{font-size:30px;}
   .menu{grid-template-columns:1fr;width:85%;gap:15px;}
   .card{font-size:18px;padding:24px;}
+  .logo{width:40px;}
 }
 </style>
 </head>
@@ -106,14 +119,17 @@
 
 <div class="overlay"></div>
 
-<!-- MUSIC (otomatis play tanpa tombol start) -->
+<!-- MUSIC OTOMATIS -->
 <audio id="music" loop autoplay>
   <source src="bg.mp3" type="audio/mpeg">
 </audio>
 
 <!-- CONTENT -->
 <div class="container">
-  <h1 class="title">Yuda Gampang</h1>
+  <div class="title-container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h1 class="title">Yuda Gampang</h1>
+  </div>
   <div class="menu">
     <a href="moment2024.html" class="card" style="--delay:0s">📸  2024</a>
     <a href="moment2025.html" class="card" style="--delay:0.3s">🌅  2025</a>
@@ -122,13 +138,18 @@
 </div>
 
 <!-- MUSIC TOGGLE BUTTON -->
-<button class="music-btn" onclick="toggleMusic()">🎵</button>
+<button class="music-btn" onclick="toggleMusic()" aria-label="Toggle Background Music">🎵</button>
 
 <script>
 let music = document.getElementById("music");
 let toggleBtn = document.querySelector('.music-btn');
 
-// Toggle musik
+// autoplay musik saat halaman dibuka
+window.addEventListener('load', () => {
+  music.play().catch(e => console.log("Autoplay diblokir:", e));
+});
+
+// toggle musik
 function toggleMusic(){
   if(music.paused){
     music.play();
@@ -142,4 +163,3 @@ function toggleMusic(){
 
 </body>
 </html>
-
