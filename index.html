@@ -2,8 +2,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>eposyuda</title>
-<meta name="description" content="JJ My Kisah - kumpulan momen 2024, 2025, 2026 dengan video background dan musik latar.">
+<title>Yuda Gampang</title>
+<meta name="description" content="JJ My Kisah - kumpulan momen 2024, 2025, 2026 dengan video background, logo, dan musik latar.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
@@ -35,10 +35,22 @@
   padding:20px;
 }
 
-/* TITLE */
+/* TITLE + LOGO */
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
 .title{
   font-size:48px;
-  margin-bottom:40px;
   text-shadow:0 0 20px black;
 }
 
@@ -107,6 +119,7 @@
   .title{font-size:30px;}
   .menu{grid-template-columns:1fr;width:85%;gap:15px;}
   .card{font-size:18px;padding:24px;}
+  .logo{width:40px;}
 }
 </style>
 </head>
@@ -129,7 +142,10 @@
 
 <!-- CONTENT -->
 <div class="container">
-  <h1 class="title">JJ My Kisah</h1>
+  <div class="title-container">
+    <img src="logo.png" alt="Logo" class="logo">
+    <h1 class="title">Yuda Gampang</h1>
+  </div>
   <div class="menu">
     <a href="moment2024.html" class="card" style="--delay:0s">📸  2024</a>
     <a href="moment2025.html" class="card" style="--delay:0.3s">🌅  2025</a>
@@ -148,8 +164,8 @@ let toggleBtn = document.querySelector('.music-btn');
 // Start music setelah klik
 startBtn.addEventListener('click', () => {
   music.play().then(() => {
-    startBtn.style.display = 'none'; // sembunyikan tombol awal
-    toggleBtn.style.display = 'block'; // tampilkan tombol toggle
+    startBtn.style.display = 'none';
+    toggleBtn.style.display = 'block';
   }).catch(e => console.log("Autoplay diblokir:", e));
 });
 
