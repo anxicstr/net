@@ -1,25 +1,35 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>eposyuda</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="logo1.png">
+
+<link rel="icon" type="image/png" sizes="32x32" href="logo1.png">
+
 <meta name="description" content="JJ My Kisah - kumpulan momen 2024, 2025, 2026 dengan video background dan musik latar.">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 /* VIDEO BACKGROUND */
 .video-bg{
-  position:fixed;top:0;left:0;
-  width:100%;height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   object-fit:cover;
   z-index:-2;
 }
 
-/* OVERLAY GELAP */
+/* OVERLAY */
 .overlay{
-  position:fixed;top:0;left:0;
-  width:100%;height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
   background:rgba(0,0,0,0.35);
   z-index:-1;
 }
@@ -36,23 +46,11 @@
   padding:20px;
 }
 
-/* TITLE + LOGO */
-.title-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px; /* jarak logo dan title */
-  margin-bottom: 40px;
-}
-
-.logo {
-  width: 60px;  /* sesuaikan ukuran logo */
-  height: auto;
-}
-
+/* TITLE */
 .title{
   font-size:48px;
   text-shadow:0 0 20px black;
+  margin-bottom:40px;
 }
 
 /* MENU GRID */
@@ -79,94 +77,91 @@
   animation: fadeInUp 0.6s forwards;
   animation-delay: var(--delay);
 }
+
 .card:hover{
   transform:translateY(-10px) scale(1.05);
   background:rgba(255,255,255,0.35);
 }
 
-/* ANIMASI KARTU */
-@keyframes fadeInUp {
+/* ANIMATION */
+@keyframes fadeInUp{
   to{
     opacity:1;
     transform:translateY(0);
   }
 }
 
-/* MUSIC BUTTON */
-.music-btn{
-  position:fixed;bottom:25px;right:25px;
-  background:rgba(255,255,255,0.3);
-  border:none;color:white;
-  font-size:22px;padding:14px 18px;
-  border-radius:50%;cursor:pointer;
-  backdrop-filter:blur(10px);
-}
-
 /* MOBILE */
 @media(max-width:768px){
-  .title{font-size:30px;}
-  .menu{grid-template-columns:1fr;width:85%;gap:15px;}
-  .card{font-size:18px;padding:24px;}
-  .logo{width:40px;}
+
+.title{
+font-size:30px;
+}
+
+.menu{
+grid-template-columns:1fr;
+width:85%;
+gap:15px;
+}
+
+.card{
+font-size:18px;
+padding:24px;
+}
+
 }
 </style>
 </head>
+
 <body>
 
 <!-- VIDEO BACKGROUND -->
 <video class="video-bg" autoplay muted loop playsinline poster="pantai.jpg">
-  <source src="pantai.mp4" type="video/mp4">
+<source src="pantai.mp4" type="video/mp4">
 </video>
 
 <div class="overlay"></div>
 
-<!-- MUSIC OTOMATIS -->
-<audio id="music" loop autoplay>
-  <source src="bg.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="bg.mp3" type="audio/mpeg">
 </audio>
 
 <!-- CONTENT -->
+<div class="container">
 
-  <div class="container">
-  <div class="title-container">
-    <h1 class="title">My Kisah</h1>
-  </div>
-  <div class="menu">
-    <a href="moment2024.html" class="card" style="--delay:0s">📸  2024</a>
-    <a href="moment2025.html" class="card" style="--delay:0.3s">🌅  2025</a>
-    <a href="moment2026.html" class="card" style="--delay:0.6s">✨  2026</a>
-  </div>
+<h1 class="title">My Kisah</h1>
+
+<div class="menu">
+
+<a href="moment2024.html" class="card" style="--delay:0s">
+📸 2024
+</a>
+
+<a href="moment2025.html" class="card" style="--delay:0.3s">
+🌅 2025
+</a>
+
+<a href="moment2026.html" class="card" style="--delay:0.6s">
+✨ 2026
+</a>
+
 </div>
 
-<!-- MUSIC TOGGLE BUTTON -->
-<button class="music-btn" onclick="toggleMusic()" aria-label="Toggle Background Music">🎵</button>
+</div>
 
 <script>
+
 let music = document.getElementById("music");
-let toggleBtn = document.querySelector('.music-btn');
 
-// autoplay musik saat halaman dibuka
-window.addEventListener('load', () => {
-  music.play().catch(e => console.log("Autoplay diblokir:", e));
-});
+/* klik dimana saja untuk mulai musik */
+document.addEventListener("click", function(){
 
-// toggle musik
-function toggleMusic(){
-  if(music.paused){
-    music.play();
-    toggleBtn.textContent = '🎵';
-  }else{
-    music.pause();
-    toggleBtn.textContent = '🔇';
-  }
-}
+music.play();
+
+}, { once:true });
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
