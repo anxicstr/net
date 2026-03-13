@@ -1,142 +1,155 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Beautiful Moments</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
 /* VIDEO BACKGROUND */
 .video-bg{
-position:fixed;top:0;left:0;
-width:100%;height:100%;
-object-fit:cover;
-z-index:-2;
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  z-index:-2;
 }
 
 /* OVERLAY GELAP */
 .overlay{
-position:fixed;top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.35);
-z-index:-1;
+  position:fixed;top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.35);
+  z-index:-1;
 }
 
 /* CONTAINER */
 .container{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-color:white;
-padding:20px;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+  padding:20px;
 }
 
 /* TITLE */
 .title{
-font-size:48px;
-margin-bottom:40px;
-text-shadow:0 0 20px black;
+  font-size:48px;
+  margin-bottom:40px;
+  text-shadow:0 0 20px black;
 }
 
 /* MENU GRID */
 .menu{
-display:grid;
-grid-template-columns:repeat(3,220px);
-gap:25px;
+  display:grid;
+  grid-template-columns:repeat(3,220px);
+  gap:25px;
 }
 
 /* CARD */
 .card{
-backdrop-filter:blur(12px);
-background:rgba(255,255,255,0.2);
-border:1px solid rgba(255,255,255,0.4);
-padding:30px;
-border-radius:16px;
-text-decoration:none;
-color:white;
-font-size:20px;
-font-weight:bold;
-transition:0.35s;
-opacity:0;
-transform:translateY(40px);
+  backdrop-filter:blur(12px);
+  background:rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,0.4);
+  padding:30px;
+  border-radius:16px;
+  text-decoration:none;
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  transition:0.35s;
+  opacity:0;
+  transform:translateY(40px);
+  animation: fadeInUp 0.6s forwards;
+  animation-delay: var(--delay);
 }
 .card:hover{
-transform:translateY(-10px) scale(1.05);
-background:rgba(255,255,255,0.35);
+  transform:translateY(-10px) scale(1.05);
+  background:rgba(255,255,255,0.35);
+}
+
+/* ANIMASI KARTU */
+@keyframes fadeInUp {
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 /* MUSIC BUTTON */
 .music-btn{
-position:fixed;bottom:25px;right:25px;
-background:rgba(255,255,255,0.3);
-border:none;color:white;
-font-size:22px;padding:14px 18px;
-border-radius:50%;cursor:pointer;
-backdrop-filter:blur(10px);
+  position:fixed;bottom:25px;right:25px;
+  background:rgba(255,255,255,0.3);
+  border:none;color:white;
+  font-size:22px;padding:14px 18px;
+  border-radius:50%;cursor:pointer;
+  backdrop-filter:blur(10px);
 }
 
 /* MOBILE */
 @media(max-width:768px){
-.title{font-size:30px;}
-.menu{grid-template-columns:1fr;width:85%;}
-.card{font-size:18px;padding:24px;}
+  .title{font-size:30px;}
+  .menu{grid-template-columns:1fr;width:85%;gap:15px;}
+  .card{font-size:18px;padding:24px;}
 }
 </style>
-
 </head>
 
 <body>
 
 <!-- VIDEO BACKGROUND -->
-
-<video class="video-bg" autoplay muted loop playsinline>
-<source src="pantai.mp4" type="video/mp4">
+<video class="video-bg" autoplay muted loop playsinline poster="pantai.jpg">
+  <source src="pantai.mp4" type="video/mp4">
 </video>
 
 <div class="overlay"></div>
 
 <!-- MUSIC -->
-
-<audio id="music" autoplay loop>
-<source src="bg.mp3" type="audio/mpeg">
+<audio id="music" loop>
+  <source src="bg.mp3" type="audio/mpeg">
 </audio>
 
 <!-- CONTENT -->
-
 <div class="container">
-<h1 class="title">JJ My Kisah</h1>
-<div class="menu">
-<a href="moment2024.html" class="card">📸  2024</a>
-<a href="moment2025.html" class="card">🌅  2025</a>
-<a href="moment2026.html" class="card">✨  2026</a>
-</div>
+  <h1 class="title">JJ My Kisah</h1>
+  <div class="menu">
+    <a href="moment2024.html" class="card" style="--delay:0s">📸  2024</a>
+    <a href="moment2025.html" class="card" style="--delay:0.3s">🌅  2025</a>
+    <a href="moment2026.html" class="card" style="--delay:0.6s">✨  2026</a>
+  </div>
 </div>
 
 <!-- MUSIC BUTTON -->
-
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
 <script>
-let music=document.getElementById("music");
+let music = document.getElementById("music");
 
-/* animasi menu muncul satu-satu */
-window.addEventListener('load',()=>{
-let cards=document.querySelectorAll(".card");
-cards.forEach((card,index)=>{
-setTimeout(()=>{
-card.style.opacity="1";
-card.style.transform="translateY(0)";
-},300*index);
-});
+/* Animasi kartu sudah di CSS dengan delay var(--delay) */
+
+/* AUTO-PLAY MUSIK - Berusaha autoplay di desktop */
+window.addEventListener('load', ()=>{
+  const playPromise = music.play();
+  if(playPromise !== undefined){
+    playPromise.catch(_ => {
+      // Autoplay gagal, tunggu klik pengguna
+      console.log("Autoplay diblokir, klik tombol musik untuk memulai");
+    });
+  }
 });
 
 /* TOGGLE MUSIC */
 function toggleMusic(){
-if(music.paused){music.play();}else{music.pause();}
+  if(music.paused){
+    music.play();
+    document.querySelector('.music-btn').textContent = '🎵';
+  }else{
+    music.pause();
+    document.querySelector('.music-btn').textContent = '🔇';
+  }
 }
 </script>
 
