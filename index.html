@@ -3,7 +3,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yuda Gampang</title>
-<meta name="description" content="JJ My Kisah - kumpulan momen 2024, 2025, 2026 dengan video background, logo, dan musik latar.">
+<meta name="description" content="JJ My Kisah - kumpulan momen 2024, 2025, 2026 dengan video background dan musik latar.">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 
@@ -35,23 +35,11 @@
   padding:20px;
 }
 
-/* TITLE + LOGO */
-.title-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 40px;
-}
-
-.logo {
-  width: 60px;
-  height: auto;
-}
-
+/* TITLE */
 .title{
   font-size:48px;
   text-shadow:0 0 20px black;
+  margin-bottom:40px;
 }
 
 /* MENU GRID */
@@ -101,25 +89,11 @@
   backdrop-filter:blur(10px);
 }
 
-/* START BUTTON */
-#startMusic{
-  position:fixed;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  background:rgba(255,255,255,0.3);
-  border:none;color:white;
-  font-size:22px;padding:18px 24px;
-  border-radius:12px;
-  cursor:pointer;
-  backdrop-filter:blur(10px);
-}
-
 /* MOBILE */
 @media(max-width:768px){
   .title{font-size:30px;}
   .menu{grid-template-columns:1fr;width:85%;gap:15px;}
   .card{font-size:18px;padding:24px;}
-  .logo{width:40px;}
 }
 </style>
 </head>
@@ -132,20 +106,14 @@
 
 <div class="overlay"></div>
 
-<!-- MUSIC -->
-<audio id="music" loop>
+<!-- MUSIC (otomatis play tanpa tombol start) -->
+<audio id="music" loop autoplay>
   <source src="bg.mp3" type="audio/mpeg">
 </audio>
 
-<!-- START BUTTON -->
-<button id="startMusic">🎵 Mulai Musik</button>
-
 <!-- CONTENT -->
 <div class="container">
-  <div class="title-container">
-    <img src="logo.png" alt="Logo" class="logo">
-    <h1 class="title">Yuda Gampang</h1>
-  </div>
+  <h1 class="title">Yuda Gampang</h1>
   <div class="menu">
     <a href="moment2024.html" class="card" style="--delay:0s">📸  2024</a>
     <a href="moment2025.html" class="card" style="--delay:0.3s">🌅  2025</a>
@@ -158,16 +126,7 @@
 
 <script>
 let music = document.getElementById("music");
-let startBtn = document.getElementById("startMusic");
 let toggleBtn = document.querySelector('.music-btn');
-
-// Start music setelah klik
-startBtn.addEventListener('click', () => {
-  music.play().then(() => {
-    startBtn.style.display = 'none';
-    toggleBtn.style.display = 'block';
-  }).catch(e => console.log("Autoplay diblokir:", e));
-});
 
 // Toggle musik
 function toggleMusic(){
@@ -179,9 +138,6 @@ function toggleMusic(){
     toggleBtn.textContent = '🔇';
   }
 }
-
-// Hide toggle button sampai user klik start
-toggleBtn.style.display = 'none';
 </script>
 
 </body>
